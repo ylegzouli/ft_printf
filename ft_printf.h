@@ -23,16 +23,15 @@
 
 typedef struct	s_arg
 {
-	t_list	*elem;
-	char	type;
-	int		size;
-	
 	char	flags[NB_FLAG + 1];
 	char 	*current;
-
+	
+	t_list	*elem;
+	int		size;
+	char	type;
+	
 	char	espace;
 	char	zero;
-
 }				t_arg;
 
 int         ft_printf(const char *format, ...);

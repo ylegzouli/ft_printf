@@ -35,10 +35,8 @@ void		ft_start_printf(const char *format, va_list *arg, t_list **li)
 {
 	t_arg		*argument;
 	char		*next_arg;
-	int			i;
 	
 	next_arg = ft_strchr(format, '%');
-	i = 0;
 	if (next_arg == NULL)
 		ft_tab_to_lst((li), (char *)format, ft_strlen(format));
 	else if (next_arg > format)

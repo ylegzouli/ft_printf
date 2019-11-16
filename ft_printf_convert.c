@@ -39,8 +39,7 @@ void        ft_convert_ptr(t_arg **argument, va_list *arg)
 	ft_putnbr_base_lst_ul(ptr, 16, "0123456789abcdef", &((*argument)->elem));
 	tmp = 'x';
 	ft_lstadd_front(&((*argument)->elem), ft_lstnew_malloc(&tmp, 1));
-	tmp = '0';
-	ft_lstadd_front(&((*argument)->elem), ft_lstnew_malloc(&tmp, 1));
+	ft_lstadd_front(&((*argument)->elem), ft_lstnew_malloc((*argument)->zero, 1));
 }
 
 void        ft_convert_hexa(t_arg **argument, va_list *arg)
