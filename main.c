@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 15:00:25 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/13 17:49:25 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/16 14:08:31 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int		main(int ac, char **av)
 {
 	char c = 'A';
-	int	n = 37465;
+	unsigned int	n = 105225;
 
-	printf("compare: \"%d\" \n", n);
-	ft_printf("result : \"%d\" \n", n);
+	printf("compare: \"%%\" \n");
+	ft_printf("result : \"%%\" \n");
 }

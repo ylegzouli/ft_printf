@@ -2,7 +2,7 @@
 
 void        ft_appli_flag(t_arg **argument, t_list **li)
 {
-	int		len;
+/*	int		len;
 	int		len_elem;
 	t_list	*cur;
  
@@ -13,12 +13,11 @@ void        ft_appli_flag(t_arg **argument, t_list **li)
         len = len_elem + 1;
 	if (ft_strchr((*argument)->flags, '-') != NULL)
 	{
-		ft_lstadd_back()
+		ft_lstadd_back() */
 
 
-	}
 //	if (ft_strchr((*argument)->flags, '0') != NULL)	
 //	if (ft_strchr((*argument)->flags, '.') != NULL)	
 	ft_lstadd_back(li, (*argument)->elem);
-//	ft_print_lst_char(*li);
+//	ft_print_lst_char((*argument)->elem);
 }

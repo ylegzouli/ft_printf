@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 18:36:52 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/13 17:49:03 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/16 14:10:37 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,14 @@ void		ft_def_type(char *format, va_list *arg, t_arg **argument, t_list **li)
 		ft_convert_str(argument, arg);
 	else if ((*argument)->type == 'c')
 		ft_convert_char(argument, arg);
-/*	else if ((*argument)->type == '%')
-		ft_convert_char(argument, arg);
+	else if ((*argument)->type == 'x' || (*argument)->type == 'X')
+		ft_convert_hexa(argument, arg);
+	else if ((*argument)->type == 'u')
+		ft_convert_unsigned(argument, arg);
 	else if ((*argument)->type == 'p')
-	else if ((*argument)->type == 'u')	
-	else if ((*argument)->type == 'x' || (*argument)->type == 'X') */
+		ft_convert_ptr(argument, arg);
+	else if ((*argument)->type == '%')
+		ft_convert_pcent(argument, arg);
 	else
-		return ;
+		return ; 
 }

@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 11:13:15 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/14 14:54:18 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/16 12:07:10 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void		ft_init_data(t_arg **argument)
 	i = 0;
 	if (!((*argument) = malloc(sizeof(t_arg))))
 			return ;
-	(*argument)->indice_arg = 0;
+//	(*argument)->indice_arg = 0;
 	(*argument)->size = -1;
 	(*argument)->type = '\0';
 	(*argument)->size_opt = -1;
