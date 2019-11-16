@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 11:13:15 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/16 12:07:10 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/16 18:56:16 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			ft_printf(const char *format, ...)
 	ft_start_printf(format, &arg, &li);
 	va_end(arg);
 	ft_print_lst_char(li);
-	ret = ft_lstsize(li);
+	ret = ft_lstsize(li) - 1;
 //	ft_lstclear();
 	return (ret);
 }
@@ -49,12 +49,11 @@ void		ft_start_printf(const char *format, va_list *arg, t_list **li)
 	else
 	{
 		ft_init_data(&argument);
-		ft_def_flag(next_arg, &argument);
-//		ft_def_indice_arg(&argument);
-		ft_def_size(next_arg, &argument);
-		ft_def_type(next_arg, arg, &argument, li);
+		ft_def_flag(next_arg, &argument, arg);
+		ft_def_size(argument->current, &argument);
+		ft_def_type(argument->current, arg, &argument, li);
 		ft_appli_flag(&argument, li);
-		next_arg = &(next_arg[argument->size_opt]);
+		next_arg = argument->current + 1;
 		ft_start_printf(next_arg, arg, li);
 	}
 }
@@ -66,10 +65,8 @@ void		ft_init_data(t_arg **argument)
 	i = 0;
 	if (!((*argument) = malloc(sizeof(t_arg))))
 			return ;
-//	(*argument)->indice_arg = 0;
 	(*argument)->size = -1;
 	(*argument)->type = '\0';
-	(*argument)->size_opt = -1;
 	(*argument)->elem = ft_lstnew(NULL);
 	while (i < (NB_FLAG))
 	{
@@ -77,6 +74,8 @@ void		ft_init_data(t_arg **argument)
 		i++;
 	}
 	((*argument)->flags)[i] = '\0';
+	(*argument)->espace = ' ';
+	(*argument)->zero = '0';
 
 	return ;
 }

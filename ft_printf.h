@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 11:13:12 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/16 14:10:31 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/16 18:55:59 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include <stdarg.h>
 
 # define TYPE "cspdiuxX%"
-# define FLAG "-0.*"
+# define FLAG "-0"
 
-# define NB_FLAG 4
+# define NB_FLAG 2
 
 typedef struct	s_arg
 {
@@ -28,9 +28,10 @@ typedef struct	s_arg
 	int		size;
 	
 	char	flags[NB_FLAG + 1];
-	int		size_opt;
-//	int		indice_arg;
+	char 	*current;
 
+	char	espace;
+	char	zero;
 
 }				t_arg;
 
@@ -39,8 +40,7 @@ void		ft_start_printf(const char *format, va_list *arg, t_list **li);
 void		ft_init_data(t_arg **argument);
 void		ft_free_data();
 
-void		ft_def_flag(char *format, t_arg **argument);
-void		ft_def_indice_arg(t_arg **argument);
+void		ft_def_flag(char *format, t_arg **argument, va_list *arg);
 void		ft_def_size(char *format, t_arg **argument);
 void		ft_def_type(char *format, va_list *arg, t_arg **argument, t_list **li);
 
@@ -53,5 +53,8 @@ void		ft_convert_int(t_arg **argument, va_list *arg);
 void		ft_convert_pcent(t_arg **argument, va_list *arg);
 
 void		ft_appli_flag(t_arg **argument, t_list **li);
+void        apply_moin(t_arg **argument, t_list **cur, int len, int len_elem);
+void        apply_zero(t_arg **argument, t_list **cur, int len, int len_elem);
+void        apply_size(t_arg **argument, t_list **cur, int len, int len_elem);
 
 #endif

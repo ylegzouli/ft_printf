@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 18:36:52 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/16 14:10:37 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/16 18:56:22 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,36 +40,27 @@ static char		ft_is_flag(char c)
 	return ('\0');
 }
 
-void        ft_def_flag(char *format, t_arg **argument)
+void        ft_def_flag(char *format, t_arg **argument, va_list *arg)
 {
 	int		i;
 
 	i = 1;
-	while (!ft_is_type(format[i]) && !(format[i] >= 49 && format[i] <= 57))
-	{
-		if (ft_is_flag(format[i]))
-			(*argument)->flags[i - 1] = ft_is_flag(format[i]);
+	while (ft_is_flag(format[i]))
+	{	
+		(*argument)->flags[i - 1] = ft_is_flag(format[i]);
 		i++;
 	}
+	if (format[i] == '*')
+	{	
+		(*argument)->size = va_arg(*arg, int);
+		i++;
+	}
+/*	if (format[++i] == '.');
+	{
+	}  */
+	(*argument)->current = &format[i];
 	return ;
 }
-/*
-void		ft_def_indice_arg(t_arg **argument)
-{
-	int		i;
-	int		ret;
-
-	i = 0;
-	while (i < (NB_FLAG + 1))
-	{
-		if ((*argument)->flags[i] == '*')
-			ret++;
-		i++;
-	}
-	(*argument)->indice_arg = ret;
-	return ;
-}                                                       ---------------> cas FLAG '%*' ?   */
-
 
 void        ft_def_size(char *format, t_arg **argument)
 {	
@@ -77,10 +68,10 @@ void        ft_def_size(char *format, t_arg **argument)
 	int		ret;
 	int		tmp;
 	
-	i = 1;
+	i = 0;
 	ret = 0;
-	while (ft_is_flag(format[i] && format[i]))
-		i++;
+	if ((*argument)->size >= 0)
+		return ;
 	while (ft_isdigit(format[i]) && format[i])
 	{
 		tmp = (int)format[i] - 48;
@@ -88,6 +79,7 @@ void        ft_def_size(char *format, t_arg **argument)
 		i++;
 	}
 	(*argument)->size = ret;
+	(*argument)->current = &format[i];
 	return ;
 }
 
@@ -95,10 +87,7 @@ void		ft_def_type(char *format, va_list *arg, t_arg **argument, t_list **li)
 {
 	int		i;
 
-	i = 1;
-	while ((ft_is_flag(format[i]) || ft_isdigit(format[i])) && format)
-		i++;
-	(*argument)->size_opt = i + 1;
+	i = 0;
 	if (format[i])
 		(*argument)->type = ft_is_type(format[i]);
 	if ((*argument)->type == 'd' || (*argument)->type == 'i')
