@@ -21,12 +21,13 @@ int			ft_printf(const char *format, ...)
 	ret = 0;
 	if (format == '\0')
 		return (0);
-	li = ft_lstnew(NULL);
 	va_start(arg, format);
+	li = ft_lstnew(NULL);
 	ft_start_printf(format, &arg, &li);
 	va_end(arg);
 	ft_print_lst_char(li);
 	ret = ft_lstsize(li);
+//	ft_lstclear();
 	return (ret);
 }
 
@@ -47,11 +48,9 @@ void		ft_start_printf(const char *format, va_list *arg, t_list **li)
 	}
 	else
 	{
-		if (!(argument = malloc(sizeof(t_arg))))
-			return ;
 		ft_init_data(&argument);
 		ft_def_flag(next_arg, &argument);
-		ft_def_indice_arg(&argument);
+//		ft_def_indice_arg(&argument);
 		ft_def_size(next_arg, &argument);
 		ft_def_type(next_arg, arg, &argument, li);
 		ft_appli_flag(&argument, li);
@@ -65,10 +64,13 @@ void		ft_init_data(t_arg **argument)
 	int		i;
 
 	i = 0;
+	if (!((*argument) = malloc(sizeof(t_arg))))
+			return ;
 	(*argument)->indice_arg = 0;
 	(*argument)->size = -1;
 	(*argument)->type = '\0';
-	(*argument)->elem = NULL;
+	(*argument)->size_opt = -1;
+	(*argument)->elem = ft_lstnew(NULL);
 	while (i < (NB_FLAG))
 	{
 		((*argument)->flags)[i] = '\0';
@@ -76,7 +78,6 @@ void		ft_init_data(t_arg **argument)
 	}
 	((*argument)->flags)[i] = '\0';
 
-	(*argument)->size_opt = 0;
 	return ;
 }
 

@@ -14,23 +14,18 @@
 
 void		ft_convert_str(t_arg **argument, va_list *arg)
 {
-	char		*str;
-	int			i;
-//--------------------> gestion nb_arg
-	i = 0;
-	str = va_arg(*arg, char*);
-	if (!((*argument)->elem = malloc(sizeof(char) * (ft_strlen(str) + 1))))
-		return ;
-	while (str[i] != '\0')
-	{
-		((*argument)->elem)[i] = str[i];
-		i++;
-	}
-	return ;
+	char	*str;
+
+	str = va_arg(*arg, char *);
+	ft_putstr_lst(str, &((*argument)->elem));
 }
 
-void        ft_convert_char(t_arg **argument, va_list *arg)
+void		ft_convert_char(t_arg **argument, va_list *arg)
 {
+	char	c;
+
+	c = va_arg(*arg, int);
+	ft_putchar_lst(c, &((*argument)->elem));
 }
 
 void        ft_convert_ptr(t_arg **argument, va_list *arg)
@@ -39,6 +34,7 @@ void        ft_convert_ptr(t_arg **argument, va_list *arg)
 
 void        ft_convert_hexa(t_arg **argument, va_list *arg)
 {
+
 }
 
 void        ft_convert_unsigned(t_arg **argument, va_list *arg)
@@ -47,12 +43,17 @@ void        ft_convert_unsigned(t_arg **argument, va_list *arg)
 
 void        ft_convert_int(t_arg **argument, va_list *arg)
 {
+	int		n;
+
+	n = va_arg(*arg, int);
+	ft_putnbr_lst(n, &((*argument)->elem));
 }
 
 void        ft_convert_pcent(t_arg **argument, va_list *arg)
 {
 }
 
+/*
 void        ft_appli_flag(t_arg **argument, t_list **li)
 {
 	int		len_elem;
@@ -88,5 +89,5 @@ void        ft_appli_flag(t_arg **argument, t_list **li)
 		ft_strlcpy(&tab[i], (*argument)->elem, len_elem + 1);
 	}
 	ft_tab_to_lst(li, tab, len_tab);
-	return ;
-}
+	return ; 
+}*/

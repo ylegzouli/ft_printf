@@ -14,5 +14,9 @@
 
 int		main(int ac, char **av)
 {
-	ft_printf("bon%-9sjour", av[1]);
+	char c = 'A';
+	int	n = 37465;
+
+	printf("compare: \"%d\" \n", n);
+	ft_printf("result : \"%d\" \n", n);
 }

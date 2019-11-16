@@ -13,24 +13,24 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include <stdarg.h>
 # include "libft/libft.h"
+# include <stdarg.h>
 
-# define FLAG "-0.*"
 # define TYPE "cspdiuxX%"
+# define FLAG "-0.*"
 
 # define NB_FLAG 4
 
 typedef struct	s_arg
 {
-	char	flags[NB_FLAG + 1];
-	int		indice_arg;
-	int		size;
+	t_list	*elem;
 	char	type;
-
-
-	char	*elem;
+	int		size;
+	
+	char	flags[NB_FLAG + 1];
 	int		size_opt;
+//	int		indice_arg;
+
 
 }				t_arg;
 

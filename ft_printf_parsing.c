@@ -53,7 +53,7 @@ void        ft_def_flag(char *format, t_arg **argument)
 	}
 	return ;
 }
-
+/*
 void		ft_def_indice_arg(t_arg **argument)
 {
 	int		i;
@@ -68,7 +68,7 @@ void		ft_def_indice_arg(t_arg **argument)
 	}
 	(*argument)->indice_arg = ret;
 	return ;
-} /*---------------> cas FLAG %           */
+}                                                       ---------------> cas FLAG '%*' ?   */
 
 
 void        ft_def_size(char *format, t_arg **argument)
@@ -84,7 +84,6 @@ void        ft_def_size(char *format, t_arg **argument)
 	while (ft_isdigit(format[i]) && format[i])
 	{
 		tmp = (int)format[i] - 48;
-		printf("%d\n\n", tmp);
 		ret = ret * 10 + tmp;
 		i++;
 	}
@@ -102,14 +101,17 @@ void		ft_def_type(char *format, va_list *arg, t_arg **argument, t_list **li)
 	(*argument)->size_opt = i + 1;
 	if (format[i])
 		(*argument)->type = ft_is_type(format[i]);
-	if ((*argument)->type == 's')
+	if ((*argument)->type == 'd' || (*argument)->type == 'i')
+		ft_convert_int(argument, arg);
+	else if ((*argument)->type == 's')
 		ft_convert_str(argument, arg);
-/*	else if ((*argument)->type == 'c')
+	else if ((*argument)->type == 'c')
+		ft_convert_char(argument, arg);
+/*	else if ((*argument)->type == '%')
+		ft_convert_char(argument, arg);
 	else if ((*argument)->type == 'p')
 	else if ((*argument)->type == 'u')	
-	else if ((*argument)->type == 'd' || (*argument)->type == 'i')	
-	else if ((*argument)->type == 'x' || (*argument)->type == 'X')
-	else if ((*argument)->type == '%') */
+	else if ((*argument)->type == 'x' || (*argument)->type == 'X') */
 	else
 		return ;
 }
