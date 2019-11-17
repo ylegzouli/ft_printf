@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 15:00:25 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/16 18:55:12 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/17 14:25:13 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 int		main(int ac, char **av)
 {
 	char c = 'A';
-	int	n = 100;
-	int	n2 = 154;
+	int	n = 12;
+	int	n2 = 3;
 	char	*str = "BONJOUR";
 	
 	int i1;
 	int i2;	
 
 	printf("reel : \n");
-	i1 = printf(av[1], n, str);
+	i1 = printf(av[1],n,n2,str);
 	printf("\ntest : \n");
-	i2 = ft_printf(av[1], n, str);
+	i2 = ft_printf(av[1],n,n2,str);
 	printf("\nr : %i\nt : %i\n", i1, i2);
 
 

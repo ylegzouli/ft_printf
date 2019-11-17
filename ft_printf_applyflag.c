@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 16:19:36 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/16 18:56:19 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/17 14:55:20 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ void        ft_appli_flag(t_arg **argument, t_list **li)
         len = (*argument)->size;
     else
         len = len_elem;
+	if ((*argument)->precision >= 0 && (*argument)->type == 's')
+	{	
+		apply_preci(argument, &cur, len, len_elem);
+		len_elem = (*argument)->precision;
+	}
 	if (ft_strchr((*argument)->flags, '-') != NULL)
 		apply_moin(argument, &cur, len, len_elem);
 	else if (ft_strchr((*argument)->flags, '0') != NULL)	
@@ -34,6 +39,33 @@ void        ft_appli_flag(t_arg **argument, t_list **li)
 //	else if(ft_strchr((*argument)->flags, '.') != NULL)	
 	(*argument)->elem = cur;
 	ft_lstadd_back(li, (*argument)->elem);
+}
+
+void		apply_preci(t_arg **argument, t_list **cur, int len, int len_elem)
+{
+	int		i;
+	t_list	*lst_tmp;
+
+	i = 0;
+	if (len_elem > (*argument)->precision)
+	{
+		lst_tmp = (*cur);
+		while (i < (*argument)->precision)
+		{	
+			(*cur) = (*cur)->next;
+			i++;
+		}
+		ft_lstclear(cur, &free);
+		(*cur) = lst_tmp;
+		i = 0;
+		while (i < (*argument)->precision - 1)
+		{
+			(*cur) = (*cur)->next;
+			i++;
+		}
+		(*cur)->next = NULL;
+		(*cur) = lst_tmp;	
+	}
 }
 
 void		apply_moin(t_arg **argument, t_list **cur, int len, int len_elem)

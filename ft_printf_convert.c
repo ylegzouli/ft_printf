@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:42:16 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/16 17:24:38 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/17 13:31:10 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void        ft_convert_ptr(t_arg **argument, va_list *arg)
 	ft_putnbr_base_lst_ul(ptr, 16, "0123456789abcdef", &((*argument)->elem));
 	tmp = 'x';
 	ft_lstadd_front(&((*argument)->elem), ft_lstnew_malloc(&tmp, 1));
-	ft_lstadd_front(&((*argument)->elem), ft_lstnew_malloc((*argument)->zero, 1));
+	tmp = '0';
+	ft_lstadd_front(&((*argument)->elem), ft_lstnew_malloc(&tmp, 1));
 }
 
 void        ft_convert_hexa(t_arg **argument, va_list *arg)

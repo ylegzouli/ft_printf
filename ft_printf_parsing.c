@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 18:36:52 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/16 18:56:22 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/17 14:55:29 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,11 @@ void        ft_def_flag(char *format, t_arg **argument, va_list *arg)
 		(*argument)->size = va_arg(*arg, int);
 		i++;
 	}
-/*	if (format[++i] == '.');
-	{
-	}  */
 	(*argument)->current = &format[i];
 	return ;
 }
 
-void        ft_def_size(char *format, t_arg **argument)
+void        ft_def_size(char *format, t_arg **argument, va_list *arg)
 {	
 	int		i;
 	int		ret;
@@ -70,15 +67,31 @@ void        ft_def_size(char *format, t_arg **argument)
 	
 	i = 0;
 	ret = 0;
-	if ((*argument)->size >= 0)
-		return ;
-	while (ft_isdigit(format[i]) && format[i])
+	if ((*argument)->size < 0)
 	{
-		tmp = (int)format[i] - 48;
-		ret = ret * 10 + tmp;
-		i++;
+		while (ft_isdigit(format[i]) && format[i])
+		{
+			tmp = (int)format[i] - 48;
+			ret = ret * 10 + tmp;
+			i++;
+		}
+		(*argument)->size = ret;
 	}
-	(*argument)->size = ret;
+	if (format[i] == '.')
+    {
+        i++;
+        if (format[i] == '*')
+		{
+			(*argument)->precision = va_arg(*arg, int);
+			i++;
+		}
+        else
+		{	
+			(*argument)->precision = ft_atoi(&format[i]);
+    		while (ft_isdigit(format[i]))
+        		i++;
+		}
+	}
 	(*argument)->current = &format[i];
 	return ;
 }

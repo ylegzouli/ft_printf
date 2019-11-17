@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 11:13:15 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/16 18:56:16 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/17 14:55:24 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		ft_start_printf(const char *format, va_list *arg, t_list **li)
 	{
 		ft_init_data(&argument);
 		ft_def_flag(next_arg, &argument, arg);
-		ft_def_size(argument->current, &argument);
+		ft_def_size(argument->current, &argument, arg);
 		ft_def_type(argument->current, arg, &argument, li);
 		ft_appli_flag(&argument, li);
 		next_arg = argument->current + 1;
@@ -66,6 +66,7 @@ void		ft_init_data(t_arg **argument)
 	(*argument)->size = -1;
 	(*argument)->type = '\0';
 	(*argument)->elem = ft_lstnew(NULL);
+	(*argument)->precision = -1;
 	while (i < (NB_FLAG))
 	{
 		((*argument)->flags)[i] = '\0';
