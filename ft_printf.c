@@ -27,13 +27,13 @@ int			ft_printf(const char *format, ...)
 	va_end(arg);
 	ft_print_lst_char(li);
 	ret = ft_lstsize(li) - 1;
-//	ft_lstclear();
+//	ft_lstclear(&li, &free);
 	return (ret);
 }
 
 void		ft_start_printf(const char *format, va_list *arg, t_list **li)
 {
-	t_arg		*argument;
+	t_arg		*data;
 	char		*next_arg;
 	
 	next_arg = ft_strchr(format, '%');
@@ -46,35 +46,36 @@ void		ft_start_printf(const char *format, va_list *arg, t_list **li)
 	}
 	else
 	{
-		ft_init_data(&argument);
-		ft_def_flag(next_arg, &argument, arg);
-		ft_def_size(argument->current, &argument, arg);
-		ft_def_type(argument->current, arg, &argument, li);
-		ft_appli_flag(&argument, li);
-		next_arg = argument->current + 1;
+		ft_init_data(&data);
+		ft_def_flag(next_arg, &data, arg);
+		ft_def_size(data->current, &data, arg);
+		ft_def_type(data->current, arg, &data, li);
+		ft_convert(&data, arg);
+		ft_appli(&data, li);
+		next_arg = data->current + 1;
 		ft_start_printf(next_arg, arg, li);
 	}
 }
 
-void		ft_init_data(t_arg **argument)
+void		ft_init_data(t_arg **data)
 {
 	int		i;
 
 	i = 0;
-	if (!((*argument) = malloc(sizeof(t_arg))))
+	if (!((*data) = malloc(sizeof(t_arg))))
 			return ;
-	(*argument)->size = -1;
-	(*argument)->type = '\0';
-	(*argument)->elem = ft_lstnew(NULL);
-	(*argument)->precision = -1;
+	(*data)->size = -1;
+	(*data)->type = '\0';
+	(*data)->elem = ft_lstnew(NULL);
+	(*data)->precision = -1;
 	while (i < (NB_FLAG))
 	{
-		((*argument)->flags)[i] = '\0';
+		((*data)->flags)[i] = '\0';
 		i++;
 	}
-	((*argument)->flags)[i] = '\0';
-	(*argument)->espace = ' ';
-	(*argument)->zero = '0';
+	((*data)->flags)[i] = '\0';
+	(*data)->espace = ' ';
+	(*data)->zero = '0';
 
 	return ;
 }

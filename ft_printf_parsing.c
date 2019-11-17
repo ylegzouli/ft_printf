@@ -40,26 +40,26 @@ static char		ft_is_flag(char c)
 	return ('\0');
 }
 
-void        ft_def_flag(char *format, t_arg **argument, va_list *arg)
+void        ft_def_flag(char *format, t_arg **data, va_list *arg)
 {
 	int		i;
 
 	i = 1;
 	while (ft_is_flag(format[i]))
 	{	
-		(*argument)->flags[i - 1] = ft_is_flag(format[i]);
+		(*data)->flags[i - 1] = ft_is_flag(format[i]);
 		i++;
 	}
 	if (format[i] == '*')
 	{	
-		(*argument)->size = va_arg(*arg, int);
+		(*data)->size = va_arg(*arg, int);
 		i++;
 	}
-	(*argument)->current = &format[i];
+	(*data)->current = &format[i];
 	return ;
 }
 
-void        ft_def_size(char *format, t_arg **argument, va_list *arg)
+void        ft_def_size(char *format, t_arg **data, va_list *arg)
 {	
 	int		i;
 	int		ret;
@@ -67,7 +67,7 @@ void        ft_def_size(char *format, t_arg **argument, va_list *arg)
 	
 	i = 0;
 	ret = 0;
-	if ((*argument)->size < 0)
+	if ((*data)->size < 0)
 	{
 		while (ft_isdigit(format[i]) && format[i])
 		{
@@ -75,48 +75,33 @@ void        ft_def_size(char *format, t_arg **argument, va_list *arg)
 			ret = ret * 10 + tmp;
 			i++;
 		}
-		(*argument)->size = ret;
+		(*data)->size = ret;
 	}
 	if (format[i] == '.')
     {
         i++;
         if (format[i] == '*')
 		{
-			(*argument)->precision = va_arg(*arg, int);
+			(*data)->precision = va_arg(*arg, int);
 			i++;
 		}
         else
 		{	
-			(*argument)->precision = ft_atoi(&format[i]);
-    		while (ft_isdigit(format[i]))
+			(*data)->precision = ft_atoi(&format[i]);
+    		while (ft_isdigit(format[i]) && format[i])
         		i++;
 		}
 	}
-	(*argument)->current = &format[i];
+	(*data)->current = &format[i];
 	return ;
 }
 
-void		ft_def_type(char *format, va_list *arg, t_arg **argument, t_list **li)
+void		ft_def_type(char *format, va_list *arg, t_arg **data, t_list **li)
 {
 	int		i;
 
 	i = 0;
 	if (format[i])
-		(*argument)->type = ft_is_type(format[i]);
-	if ((*argument)->type == 'd' || (*argument)->type == 'i')
-		ft_convert_int(argument, arg);
-	else if ((*argument)->type == 's')
-		ft_convert_str(argument, arg);
-	else if ((*argument)->type == 'c')
-		ft_convert_char(argument, arg);
-	else if ((*argument)->type == 'x' || (*argument)->type == 'X')
-		ft_convert_hexa(argument, arg);
-	else if ((*argument)->type == 'u')
-		ft_convert_unsigned(argument, arg);
-	else if ((*argument)->type == 'p')
-		ft_convert_ptr(argument, arg);
-	else if ((*argument)->type == '%')
-		ft_convert_pcent(argument, arg);
-	else
-		return ; 
+		(*data)->type = ft_is_type(format[i]);
+	return ;
 }

@@ -13,7 +13,7 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include "libft/libft.h"
+# include "libft.h"
 # include <stdarg.h>
 
 # define TYPE "cspdiuxX%"
@@ -24,12 +24,12 @@
 typedef struct	s_arg
 {
 	char	flags[NB_FLAG + 1];
+	int		size;
 	int		precision;
+	char	type;
 	char 	*current;
 	
 	t_list	*elem;
-	int		size;
-	char	type;
 	
 	char	espace;
 	char	zero;
@@ -37,25 +37,26 @@ typedef struct	s_arg
 
 int         ft_printf(const char *format, ...);
 void		ft_start_printf(const char *format, va_list *arg, t_list **li);
-void		ft_init_data(t_arg **argument);
+void		ft_init_data(t_arg **data);
 void		ft_free_data();
 
-void		ft_def_flag(char *format, t_arg **argument, va_list *arg);
-void		ft_def_size(char *format, t_arg **argument, va_list *arg);
-void		ft_def_type(char *format, va_list *arg, t_arg **argument, t_list **li);
+void		ft_def_flag(char *format, t_arg **data, va_list *arg);
+void		ft_def_size(char *format, t_arg **data, va_list *arg);
+void		ft_def_type(char *format, va_list *arg, t_arg **data, t_list **li);
 
-void		ft_convert_char(t_arg **argument, va_list *arg);
-void		ft_convert_str(t_arg **argument, va_list *arg);
-void		ft_convert_ptr(t_arg **argument, va_list *arg);
-void		ft_convert_hexa(t_arg **argument, va_list *arg);
-void		ft_convert_unsigned(t_arg **argument, va_list *arg);
-void		ft_convert_int(t_arg **argument, va_list *arg);
-void		ft_convert_pcent(t_arg **argument, va_list *arg);
+void		ft_convert(t_arg **data, va_list *arg);
+void		ft_convert_char(t_arg **data, va_list *arg);
+void		ft_convert_str(t_arg **data, va_list *arg);
+void		ft_convert_ptr(t_arg **data, va_list *arg);
+void		ft_convert_hexa(t_arg **data, va_list *arg);
+void		ft_convert_unsigned(t_arg **data, va_list *arg);
+void		ft_convert_int(t_arg **data, va_list *arg);
+void		ft_convert_pcent(t_arg **data, va_list *arg);
 
-void		ft_appli_flag(t_arg **argument, t_list **li);
-void        apply_preci(t_arg **argument, t_list **cur, int len, int len_elem);
-void        apply_moin(t_arg **argument, t_list **cur, int len, int len_elem);
-void        apply_zero(t_arg **argument, t_list **cur, int len, int len_elem);
-void        apply_size(t_arg **argument, t_list **cur, int len, int len_elem);
+void		ft_appli(t_arg **data, t_list **li);
+void        ft_appli_preci(t_arg **data, t_list **cur, int len, int len_elem);
+void        ft_appli_moin(t_arg **data, t_list **cur, int len, int len_elem);
+void        ft_appli_zero(t_arg **data, t_list **cur, int len, int len_elem);
+void        ft_appli_size(t_arg **data, t_list **cur, int len, int len_elem);
 
 #endif
