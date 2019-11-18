@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 15:00:25 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/17 15:53:00 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/18 18:08:35 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ int		main(int ac, char **av)
 
 	printf("\n---------------------------------------A FIX-------------------------------------\n");
 
-	printf("\n 1.					[%%p]\n");
+	printf("\n 1.[FIX]				[%%p]\n");
 	i1 = printf("compare: \"%p\" \n", &malloc) - 13;
 	i2 = ft_printf("result : \"%p\"", &malloc) - 11;
 	printf("\n[%d][%d]", i1, i2);
 
-	printf("\n\n2.					[%%xX]\n");
+	printf("\n\n2.[FIX]					[%%xX]\n");
     i1 = printf("compare: \"%x\" \n", 243775) -13;
     i2 = ft_printf("result : \"%x\"", 243775) -11;
     printf("\n[%d][%d]", i1, i2);
@@ -46,27 +46,27 @@ int		main(int ac, char **av)
     i2 = ft_printf("result : \"%10.8s\"", str2) - 11;
     printf("\n[%d][%d]", i1, i2);
 
-	printf("\n\n5.					[%%.6s]  (preci < size?)\n");
+	printf("\n\n5.[FIX]					[%%.6s]  (preci < size?)\n");
     i1 = printf("compare: \"%.6s\" \n", "abcdefghijklmno") - 13;
     i2 = ft_printf("result : \"%.6s\"", "abcdefghijklmno") - 11;
     printf("\n[%d][%d]", i1, i2);
 
-	printf("\n\n6.					[%%-4.16d]\n");
+	printf("\n\n6.[FIX]					[%%-4.16d]\n");
     i1 = printf("compare: \"%-4.16d\" \n", nb) - 13;
     i2 = ft_printf("result : \"%-4.16d\"", nb) - 11;
     printf("\n[%d][%d]", i1, i2);
 
- 	printf("\n\n7.					[%%025.6d]\n");
+ 	printf("\n\n7.[FIX]					[%%025.6d]\n");
     i1 = printf("compare: \"%025.6d\" \n", nb) - 13;
     i2 = ft_printf("result : \"%025.6d\"", nb) - 11;
     printf("\n[%d][%d]", i1, i2);
 
-	printf("\n\n8.					[%%6.9s]\n");
+	printf("\n\n8.[FIX]					[%%6.9s]\n");
     i1 = printf("compare: \"%6.9s\" \n", "abcdef") - 13;
     i2 = ft_printf("result : \"%6.9s\"", "abcdef") - 11;
     printf("\n[%d][%d]", i1, i2);
 
-	printf("\n\n9.					[%%.6d]\n");
+	printf("\n\n9.[FIX]					[%%.6d]\n");
     i1 = printf("compare: \"%.6d\" \n", 342) - 13;
     i2 = ft_printf("result : \"%.6d\"", 342) - 11;
     printf("\n[%d][%d]", i1, i2);
