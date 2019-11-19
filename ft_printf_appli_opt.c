@@ -12,12 +12,33 @@
 
 #include "ft_printf.h"
 
+/*
+void		ft_size(t_arg **data, int len, int len_elem, t_list **cur)
+{
+	if ((*data)->type != 'p' && (*data)->type != 'x' && (*data)->type != 'X')
+    {
+        *cur = (*data)->elem->next;
+        free((*data)->elem);
+        len_elem = ft_lstsize(*cur);
+    }
+    else
+    {
+        *cur = (*data)->elem;
+        len_elem = ft_lstsize(*cur);
+    }
+    if ((*data)->size > len_elem)
+        len = (*data)->size;
+    else
+        len = len_elem;
+} */
+
 void        ft_appli(t_arg **data, t_list **li)
 {
 	int		len;
 	int		len_elem;
 	t_list	*cur;
-
+	
+//	ft_size(data, len, len_elem, &cur);
 	if ((*data)->type != 'p' && (*data)->type != 'x' && (*data)->type != 'X') 
  	{
 		cur = (*data)->elem->next;
@@ -42,7 +63,8 @@ void        ft_appli(t_arg **data, t_list **li)
 		ft_appli_moin(data, &cur, len, len_elem);
 	else if (ft_strchr((*data)->flags, '0') != NULL)	
 		ft_appli_zero(data, &cur, len, len_elem);
-	ft_appli_size(data, &cur, len, len_elem);
+//	if (!ft_strchr((*data)->flags, '0') && (*data)->precision < 0)
+		ft_appli_size(data, &cur, len, len_elem);
 	(*data)->elem = cur;
 	ft_lstadd_back(li, (*data)->elem);
 }
