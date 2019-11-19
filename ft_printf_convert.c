@@ -35,17 +35,25 @@ void		ft_convert(t_arg **data, va_list *arg)
 void		ft_convert_str(t_arg **data, va_list *arg)
 {
 	char	*str;
-
+	t_list	*cur;
+	
 	str = va_arg(*arg, char *);
 	ft_putstr_lst(str, &((*data)->elem));
+	cur = (*data)->elem->next;
+	free((*data)->elem);
+	(*data)->elem = cur;
 }
 
 void		ft_convert_char(t_arg **data, va_list *arg)
 {
 	char	c;
+	t_list	*cur;
 
 	c = va_arg(*arg, int);
 	ft_putchar_lst(c, &((*data)->elem));
+	cur = (*data)->elem->next;
+	free((*data)->elem);
+	(*data)->elem = cur;
 }
 
 void        ft_convert_ptr(t_arg **data, va_list *arg)
@@ -53,10 +61,23 @@ void        ft_convert_ptr(t_arg **data, va_list *arg)
 	void			*temp;
 	unsigned long  	ptr;
 	char			tmp;
+	t_list			*cur;
+	t_list			*tmp_lst;
 
 	temp = va_arg(*arg, void *);
 	ptr = (unsigned long)temp;
 	ft_putnbr_base_lst_ul(ptr, 16, "0123456789abcdef", &((*data)->elem));
+  	cur = (*data)->elem;
+    tmp_lst = (*data)->elem;
+    while (cur->next->next != NULL)
+    {
+        cur = cur->next;
+        (*data)->elem = (*data)->elem->next;
+    }
+    cur->next = NULL;
+    (*data)->elem = (*data)->elem->next;
+    free((*data)->elem);
+    (*data)->elem = tmp_lst;
 	tmp = 'x';
 	ft_lstadd_front(&((*data)->elem), ft_lstnew_malloc(&tmp, 1));
 	tmp = '0';
@@ -66,6 +87,8 @@ void        ft_convert_ptr(t_arg **data, va_list *arg)
 void        ft_convert_hexa(t_arg **data, va_list *arg)
 {
 	unsigned int n;
+	t_list		*cur;
+	t_list		*tmp;
 
 	n = va_arg(*arg, unsigned int);
 
@@ -73,25 +96,49 @@ void        ft_convert_hexa(t_arg **data, va_list *arg)
 		ft_putnbr_base_lst_u(n, 16, "0123456789abcdef", &((*data)->elem));
 	if ((*data)->type == 'X')
 		ft_putnbr_base_lst_u(n, 16, "0123456789ABCDEF", &((*data)->elem));
+ 	cur = (*data)->elem;
+ 	tmp = (*data)->elem;
+	while (cur->next->next != NULL)
+	{
+		cur = cur->next;
+		(*data)->elem = (*data)->elem->next;
+	}
+	cur->next = NULL;
+	(*data)->elem = (*data)->elem->next;
+ 	free((*data)->elem);
+	(*data)->elem = tmp;
 }
 
 void        ft_convert_unsigned(t_arg **data, va_list *arg)
 {
 	unsigned int n;
-	
+	t_list		*cur;
+		
 	n = va_arg(*arg, unsigned int);
 	ft_putnbr_lst_u(n, &((*data)->elem));
+	cur = (*data)->elem->next;
+	free((*data)->elem);
+	(*data)->elem = cur;
 }
 
 void        ft_convert_int(t_arg **data, va_list *arg)
 {
 	int		n;
+	t_list	*cur;
 
 	n = va_arg(*arg, int);
 	ft_putnbr_lst(n, &((*data)->elem));
+	cur = (*data)->elem->next;
+	free((*data)->elem);
+	(*data)->elem = cur;
 }
 
 void        ft_convert_pcent(t_arg **data, va_list *arg)
 {
+	t_list	*cur;
+
 	ft_putchar_lst('%', &((*data)->elem));
+	cur = (*data)->elem->next;
+	free((*data)->elem);
+	(*data)->elem = cur;
 }

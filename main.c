@@ -36,12 +36,12 @@ int		main(int ac, char **av)
     i2 = ft_printf("result : \"%x\"", 243775) -11;
     printf("\n[%d][%d]", i1, i2);
 
-	printf("\n\n3.					[%%s]  (chaine null)\n");
+/*	printf("\n\n3.					[%%s]  (chaine null)\n");
 	i1 = printf("compare: \"%s\" \n", str) - 13;
 	i2 = ft_printf("result : \"%s\"", str) - 11;
-	printf("\n[%d][%d]", i1, i2);
+	printf("\n[%d][%d]", i1, i2);*/
 
-	printf("\n\n4.					[%%10.8s]  (preci > size_elem?)\n");
+	printf("\n\n4.[FIX]					[%%10.8s]  (preci > size_elem?)\n");
     i1 = printf("compare: \"%10.8s\" \n", str2) - 13;
     i2 = ft_printf("result : \"%10.8s\"", str2) - 11;
     printf("\n[%d][%d]", i1, i2);
@@ -70,7 +70,27 @@ int		main(int ac, char **av)
     i1 = printf("compare: \"%.6d\" \n", 342) - 13;
     i2 = ft_printf("result : \"%.6d\"", 342) - 11;
     printf("\n[%d][%d]", i1, i2);
-	
+
+	printf("\n\n10.[FIX]				[%%-*.5x]\n");
+    i1 = printf("compare: \"%-*.5x\" \n", 12, 24356) - 13;
+    i2 = ft_printf("result : \"%-*.5x\"", 12, 24356) - 11;
+    printf("\n[%d][%d]", i1, i2);
+
+	printf("\n\n11.[FIX]				[%%*.*d]\n");
+    i1 = printf("compare: \"%*.*d\" \n", 15, 10, 42) - 13;
+    i2 = ft_printf("result : \"%*.*d\"", 15, 10, 42) - 11;
+    printf("\n[%d][%d]", i1, i2);
+
+/*	 printf("\n\n4.                 [%%]\n");
+    i1 = printf("compare: \"%\" \n", str2) - 13;
+    i2 = ft_printf("result : \"%\"", str2) - 11;
+    printf("\n[%d][%d]", i1, i2);
+
+	 printf("\n\n4.                 [%%]\n");
+    i1 = printf("compare: \"%\" \n", str2) - 13;
+    i2 = ft_printf("result : \"%\"", str2) - 11;
+    printf("\n[%d][%d]", i1, i2);
+*/
 	printf("\n\n-------------------------------------CURRENT TEST---------------------------------\n\n");
 
 	ft_printf("\nFLAG=[%s]	|	ARG=[%s] \n\n", av[1], av[2]);
@@ -93,7 +113,7 @@ int		main(int ac, char **av)
         i2 = ft_printf(av[1], av[2][0]);
 		printf("\"\n[%d][%d]\n", i1, i2);
     }
-	else if (av[1][len] == 'd' || av[1][len] == 'i' || av[1][len] == 'x' || av[1][len] == 'X')
+	else if (av[1][len] == 'u' || av[1][len] == 'd' || av[1][len] == 'i' || av[1][len] == 'x' || av[1][len] == 'X')
     {
 		printf("compare: \"");
         i1 = printf(av[1], atoi(av[2]));

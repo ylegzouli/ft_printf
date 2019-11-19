@@ -38,18 +38,8 @@ void        ft_appli(t_arg **data, t_list **li)
 	int		len_elem;
 	t_list	*cur;
 	
-//	ft_size(data, len, len_elem, &cur);
-	if ((*data)->type != 'p' && (*data)->type != 'x' && (*data)->type != 'X') 
- 	{
-		cur = (*data)->elem->next;
-		free((*data)->elem);
- 		len_elem = ft_lstsize(cur);
- 	}
-	else
-	{
-		cur = (*data)->elem;
- 		len_elem = ft_lstsize(cur);
-	}
+	cur = (*data)->elem;
+ 	len_elem = ft_lstsize(cur);
 	if ((*data)->size > len_elem)
         len = (*data)->size;
     else
@@ -63,7 +53,7 @@ void        ft_appli(t_arg **data, t_list **li)
 		ft_appli_moin(data, &cur, len, len_elem);
 	else if (ft_strchr((*data)->flags, '0') != NULL)	
 		ft_appli_zero(data, &cur, len, len_elem);
-//	if (!ft_strchr((*data)->flags, '0') && (*data)->precision < 0)
+	if (ft_strchr((*data)->flags, '-') == NULL)
 		ft_appli_size(data, &cur, len, len_elem);
 	(*data)->elem = cur;
 	ft_lstadd_back(li, (*data)->elem);
@@ -144,4 +134,9 @@ void		ft_appli_size(t_arg **data, t_list **cur, int len, int len_elem)
 		ft_lstadd_front(cur, ft_lstnew(&(*data)->espace));
         len_elem++;
     }
+	while ((*data)->precision <= (*data)->size && (*data)->type == 's')
+	{
+		ft_lstadd_front(cur, ft_lstnew(&(*data)->espace));
+		((*data)->precision)++;
+	}
 }
