@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 11:13:12 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/21 17:53:02 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/21 19:14:32 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,16 @@ int				ft_start_printf(const char *format, va_list *arg, t_list **li);
 int				ft_start_opt(char *next_arg, va_list *arg, t_list **li,
 t_arg **data);
 int				ft_init_data(t_arg **data);
-void			ft_free_data();
+void			ft_free_data(t_list **li);
 
 void			ft_def_flag(char *format, t_arg **data, va_list *arg);
 void			ft_def_size(char *format, t_arg **data, va_list *arg);
 void			ft_def_preci(char *format, t_arg **data, va_list *arg);
 void			ft_def_type(char *format, va_list *arg, t_arg **data,
 t_list **li);
+char			ft_is_flag(char c);
+char			ft_is_type(char c);
+
 
 int				ft_convert(t_arg **data, va_list *arg);
 int				ft_convert_char(t_arg **data, va_list *arg);

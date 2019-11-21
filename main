@@ -29,7 +29,7 @@ int main() {
 	printf("=============================================================================\n");
     printf("=============================================================================\n");
 	printf("=============================================================== mabois ======\n");
-	printf("******************** PART 1 :\n\n\n");
+/*	printf("******************** PART 1 :\n\n\n");
 	printf("\033[0m;");
 
 		printf("\033[0;36m======================= TEST\033[0m 1\n");
@@ -149,7 +149,7 @@ int main() {
 		i = ft_printf("%\n");
 		printf("                                             \033[1;33mretour unofficiel : %d\033[0m\n", i);
 
-	printf("\033[1;31m");
+	printf("\033[1;31m");*/
 	printf("\n=============================================================================\n");
 	printf("******************** PART 5 :\n\n\n");
 	printf("\033[0m;");
@@ -161,13 +161,13 @@ int main() {
 		i = ft_printf("|%-10.10%|\n");
 		printf("                                             \033[1;33mretour unofficiel : %d\033[0m\n", i);
 
-		printf("\033[0;36m======================= TEST\033[0m 2\n");
+/*		printf("\033[0;36m======================= TEST\033[0m 2\n");
 		i = printf("|%-5..-.10%|\n");
 			fflush(stdout);
 		printf("                                             \033[1;33mretour officiel   : %d\033[0m\n", i);
 		i = ft_printf("|%-5..-.10%|\n");
 		printf("                                             \033[1;33mretour unofficiel : %d\033[0m\n", i);
-
+*/
 		printf("\033[0;36m======================= TEST\033[0m 3\n");
 		i = printf("|%-020..-.5%|\n");
 			fflush(stdout);
@@ -216,7 +216,7 @@ int main() {
 		printf("                                             \033[1;33mretour unofficiel : %d\033[0m\n", i);
 
 	printf("\033[1;31m");
-	printf("\n=============================================================================\n");
+/*	printf("\n=============================================================================\n");
 	printf("******************** PART 7 :\n\n\n");
 	printf("\033[0m;");
 
@@ -2600,6 +2600,6 @@ int main() {
 		printf("{%0*.*d}", 5, -15, 42); printf("|fin\n");
 		ft_printf("{%0*.*d}", 5, -15, 42); printf("|fin\n");
 		printf("valeur de retour = %d\n", ft_printf("ft_printf = \"%15p\"\n", str));
-		printf("valeur de retour = %d\n\n", printf("   printf = \"%15p\"\n", str));
+		printf("valeur de retour = %d\n\n", printf("   printf = \"%15p\"\n", str));*/
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:42:16 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/21 17:52:59 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:38:43 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int				ft_convert_str(t_arg **data, va_list *arg)
 	str = va_arg(*arg, char *);
 	if (str == NULL)
 	{
-
 		if (!(ft_putstr_lst((*data)->str_null, &((*data)->elem))))
 			return (0);
 	}
@@ -102,7 +101,6 @@ int				ft_convert_ptr(t_arg **data, va_list *arg)
 	tmp = 'x';
 	ft_lstadd_front(&((*data)->elem), ft_lstnew_malloc(&tmp, 1));
 	ft_lstadd_front(&((*data)->elem), ft_lstnew_malloc(&((*data)->zero), 1));
-	//---------->malloc non proteger
 	return (1);
 }
 
@@ -117,10 +115,8 @@ int				ft_convert_hexa(t_arg **data, va_list *arg)
 		if (!(ft_pnblu(n, 16, "0123456789abcdef", &((*data)->elem))))
 			return (0);
 	if ((*data)->type == 'X')
-	{
 		if (!(ft_pnblu(n, 16, "0123456789ABCDEF", &((*data)->elem))))
 			return (0);
-	}
 	cur = (*data)->elem;
 	tmp = (*data)->elem;
 	while (cur->next->next != NULL)

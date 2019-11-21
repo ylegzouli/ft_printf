@@ -6,13 +6,13 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 18:36:52 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/21 14:45:55 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/21 19:22:01 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char			ft_is_type(char c)
+char	ft_is_type(char c)
 {
 	int		i;
 
@@ -26,7 +26,7 @@ static char			ft_is_type(char c)
 	return ('\0');
 }
 
-static char			ft_is_flag(char c)
+char	ft_is_flag(char c)
 {
 	int		i;
 
@@ -40,7 +40,7 @@ static char			ft_is_flag(char c)
 	return ('\0');
 }
 
-void				ft_def_flag(char *format, t_arg **data, va_list *arg)
+void	ft_def_flag(char *format, t_arg **data, va_list *arg)
 {
 	int		i;
 
@@ -59,12 +59,12 @@ void				ft_def_flag(char *format, t_arg **data, va_list *arg)
 	return ;
 }
 
-void				ft_def_size(char *format, t_arg **data, va_list *arg)
-{	
+void	ft_def_size(char *format, t_arg **data, va_list *arg)
+{
 	int		i;
 	int		ret;
 	int		tmp;
-	
+
 	i = 0;
 	ret = 0;
 	if ((*data)->size < 0 && ft_isdigit(format[i]))
@@ -81,13 +81,13 @@ void				ft_def_size(char *format, t_arg **data, va_list *arg)
 	return ;
 }
 
-void				ft_def_preci(char *format, t_arg **data, va_list *arg)
+void	ft_def_preci(char *format, t_arg **data, va_list *arg)
 {
 	int		i;
 
 	i = 0;
 	if (format[i] == '.')
-    {
+	{
 		i++;
 		if (format[i] == '*')
 		{
@@ -107,7 +107,7 @@ void				ft_def_preci(char *format, t_arg **data, va_list *arg)
 	return ;
 }
 
-void				ft_def_type(char *format, va_list *arg, t_arg **data, t_list **li)
+void	ft_def_type(char *format, va_list *arg, t_arg **data, t_list **li)
 {
 	int		i;
 

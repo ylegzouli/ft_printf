@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 16:19:36 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/21 17:52:54 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:38:33 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int			ft_appli_preci(t_arg **data, t_list **cur, int len, int len_elem)
 		}
 		while (len_elem < (*data)->precision)
 		{
-			ft_lstadd_front(cur, ft_lstnew(&((*data)->zero)));//------------->malloc non protege
+			ft_lstadd_front(cur, ft_lstnew(&((*data)->zero)));
 			len_elem++;
 		}
 		if (tmp[0] == '&' && ((*data)->type == 'd' || (*data)->type == 'i'))
