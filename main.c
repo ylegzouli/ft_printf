@@ -139,7 +139,8 @@ int main(int ac, char **av)
 	printf("\n\n-------------------------------------CURRENT TEST---------------------------------\n\n");
 
 	ft_printf("\nFLAG=[%s]	|	ARG=[%s] \n\n", av[1], av[2]);
-
+//	while (1)
+//	{}
 	if (av[1][len] == 's')
 	{
 		printf("compare: \"");
