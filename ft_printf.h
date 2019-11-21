@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 11:13:12 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/17 14:55:15 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:16:59 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,36 +27,46 @@ typedef struct	s_arg
 	int		size;
 	int		precision;
 	char	type;
-	char 	*current;
-	
+	char	*current;
+
 	t_list	*elem;
-	
+
 	char	espace;
 	char	zero;
+	char	moin;
+	char	str_null[7];
 }				t_arg;
 
-int         ft_printf(const char *format, ...);
-void		ft_start_printf(const char *format, va_list *arg, t_list **li);
-void		ft_init_data(t_arg **data);
-void		ft_free_data();
+int				ft_printf(const char *format, ...);
+int				ft_start_printf(const char *format, va_list *arg, t_list **li);
+int				ft_start_opt(char *next_arg, va_list *arg, t_list **li,
+t_arg **data);
+int				ft_init_data(t_arg **data);
+void			ft_free_data();
 
-void		ft_def_flag(char *format, t_arg **data, va_list *arg);
-void		ft_def_size(char *format, t_arg **data, va_list *arg);
-void		ft_def_type(char *format, va_list *arg, t_arg **data, t_list **li);
+void			ft_def_flag(char *format, t_arg **data, va_list *arg);
+void			ft_def_size(char *format, t_arg **data, va_list *arg);
+void			ft_def_preci(char *format, t_arg **data, va_list *arg);
+void			ft_def_type(char *format, va_list *arg, t_arg **data,
+t_list **li);
 
-void		ft_convert(t_arg **data, va_list *arg);
-void		ft_convert_char(t_arg **data, va_list *arg);
-void		ft_convert_str(t_arg **data, va_list *arg);
-void		ft_convert_ptr(t_arg **data, va_list *arg);
-void		ft_convert_hexa(t_arg **data, va_list *arg);
-void		ft_convert_unsigned(t_arg **data, va_list *arg);
-void		ft_convert_int(t_arg **data, va_list *arg);
-void		ft_convert_pcent(t_arg **data, va_list *arg);
+int				ft_convert(t_arg **data, va_list *arg);
+int				ft_convert_char(t_arg **data, va_list *arg);
+int				ft_convert_str(t_arg **data, va_list *arg);
+int				ft_convert_ptr(t_arg **data, va_list *arg);
+int				ft_convert_hexa(t_arg **data, va_list *arg);
+int				ft_convert_unsigned(t_arg **data, va_list *arg);
+int				ft_convert_int(t_arg **data, va_list *arg);
+int				ft_convert_pcent(t_arg **data, va_list *arg);
 
-void		ft_appli(t_arg **data, t_list **li);
-void        ft_appli_preci(t_arg **data, t_list **cur, int len, int len_elem);
-void        ft_appli_moin(t_arg **data, t_list **cur, int len, int len_elem);
-void        ft_appli_zero(t_arg **data, t_list **cur, int len, int len_elem);
-void        ft_appli_size(t_arg **data, t_list **cur, int len, int len_elem);
+int				ft_appli(t_arg **data, t_list **li);
+int				ft_appli_preci(t_arg **data, t_list **cur, int len,
+int len_elem);
+int				ft_appli_moin(t_arg **data, t_list **cur, int len,
+int len_elem);
+int				ft_appli_zero(t_arg **data, t_list **cur, int len,
+int len_elem);
+int				ft_appli_size(t_arg **data, t_list **cur, int len,
+int len_elem);
 
 #endif

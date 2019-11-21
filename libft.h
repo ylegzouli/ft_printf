@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 16:07:57 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/16 14:04:39 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/21 11:13:18 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,16 @@ void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 void (*del)(void *));
 void        	ft_print_lst_char(t_list *li);
-void        	ft_tab_to_lst(t_list **li, char *tab, size_t size);
+int	        	ft_tab_to_lst(t_list **li, char *tab, size_t size);
 
-void			ft_putchar_lst(char c, t_list **li);
-void			ft_putstr_lst(char *s, t_list **li);
-void			ft_putnbr_lst(int nb, t_list **li);
+int				ft_putchar_lst(char c, t_list **li);
+int				ft_putstr_lst(char *s, t_list **li);
+int				ft_putnbr_lst(int nb, t_list **li);
 t_list          *ft_putnbr_base_lst(int n, int baselen, char *base, t_list **li);
-void            ft_putnbr_lst_u(unsigned int nb, t_list **li);
-t_list          *ft_putnbr_base_lst_u(unsigned int n, unsigned int baselen,
+int	            ft_putnbr_lst_u(unsigned int nb, t_list **li);
+t_list          *ft_pnblu(unsigned int n, unsigned int baselen,
 char *base, t_list **li);
-t_list          *ft_putnbr_base_lst_ul(unsigned long n, unsigned long baselen,
+t_list          *ft_pnblul(unsigned long n, unsigned long baselen,
 char *base, t_list **li);
 
 #endif

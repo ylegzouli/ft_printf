@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 16:19:36 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/18 18:28:41 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:16:50 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		ft_size(t_arg **data, int len, int len_elem, t_list **cur)
         len = len_elem;
 } */
 
-void        ft_appli(t_arg **data, t_list **li)
+int			ft_appli(t_arg **data, t_list **li)
 {
 	int		len;
 	int		len_elem;
@@ -46,25 +46,44 @@ void        ft_appli(t_arg **data, t_list **li)
         len = len_elem;
 	if ((*data)->precision >= 0)
 	{	
-		ft_appli_preci(data, &cur, len, len_elem);
-		len_elem = (*data)->precision;
+		if (!(ft_appli_preci(data, &cur, len, len_elem)))
+			return (0);
+		if ((*data)->type != 's')
+			len_elem = (*data)->precision;
+		else if (len_elem > (*data)->precision)
+			len_elem = (*data)->precision;
 	}
 	if (ft_strchr((*data)->flags, '-') != NULL)
-		ft_appli_moin(data, &cur, len, len_elem);
+	{
+		if (!(ft_appli_moin(data, &cur, len, len_elem)))
+			return (0);
+	}
 	else if (ft_strchr((*data)->flags, '0') != NULL)	
-		ft_appli_zero(data, &cur, len, len_elem);
+	{	
+		if (!(ft_appli_zero(data, &cur, len, len_elem)))
+			return (0);
+		if ((*data)->precision == -1)
+			len = -10;
+	}
 	if (ft_strchr((*data)->flags, '-') == NULL)
-		ft_appli_size(data, &cur, len, len_elem);
+	{	
+		if (!(ft_appli_size(data, &cur, len, len_elem)))
+			return (0);
+		len_elem = (*data)->size;
+	}
 	(*data)->elem = cur;
 	ft_lstadd_back(li, (*data)->elem);
+	return (1);
 }
 
-void		ft_appli_preci(t_arg **data, t_list **cur, int len, int len_elem)
+int			ft_appli_preci(t_arg **data, t_list **cur, int len, int len_elem)
 {
 	int		i;
 	t_list	*lst_tmp;
+	char	*tmp;
 
 	i = 0;
+	tmp = (*cur)->content;
 	if (len_elem > (*data)->precision && (*data)->type == 's')
 	{
 		lst_tmp = (*cur);
@@ -86,27 +105,45 @@ void		ft_appli_preci(t_arg **data, t_list **cur, int len, int len_elem)
 	}
 	if (len_elem < (*data)->precision && (*data)->type != 's')
 	{
+		if ((*data)->type == 'i' || (*data)->type == 'd')
+		{
+        	if (tmp[0] == '-')
+			{
+            	(*cur) = (*cur)->next;
+				((*data)->precision)++;
+				tmp[0] = '&';
+    		}
+		}
 		while (len_elem < (*data)->precision)
 		{
-			ft_lstadd_front(cur, ft_lstnew(&((*data)->zero)));
+			ft_lstadd_front(cur, ft_lstnew(&((*data)->zero)));//------------->malloc non protege
 			len_elem++;
 		}
+		if (tmp[0] == '&')
+			ft_lstadd_front(cur, ft_lstnew(&((*data)->moin)));
 	}
+	return (1);
 }
 
-void		ft_appli_moin(t_arg **data, t_list **cur, int len, int len_elem)
+int			ft_appli_moin(t_arg **data, t_list **cur, int len, int len_elem)
 {
+	t_list		*tmp;
+
 	while (len_elem < len)
 	{
-		ft_lstadd_back(cur, ft_lstnew(&((*data)->espace)));
+		if (!(tmp = ft_lstnew(&((*data)->espace))))
+			return (0);
+		ft_lstadd_back(cur, tmp);
 		len_elem++;
 	}
+	return (1);
 }
 
-void		ft_appli_zero(t_arg **data, t_list **cur, int len, int len_elem)
+int			ft_appli_zero(t_arg **data, t_list **cur, int len, int len_elem)
 {
 	char	*tmp;
 	t_list	*lst_tmp;
+	t_list	*temp;
 
 	tmp = (*cur)->content;
 	lst_tmp = (*cur);
@@ -117,7 +154,9 @@ void		ft_appli_zero(t_arg **data, t_list **cur, int len, int len_elem)
 	}
 	while (len_elem < len && (*data)->precision < 0)
 	{
-		ft_lstadd_front(cur, ft_lstnew(&(*data)->zero));
+		if (!(temp = ft_lstnew(&(*data)->zero)))
+			return (0);
+		ft_lstadd_front(cur, temp);
 		len_elem++;
 	}
 	if (tmp[0] == '-')
@@ -125,18 +164,29 @@ void		ft_appli_zero(t_arg **data, t_list **cur, int len, int len_elem)
 		lst_tmp->next = *cur;
 		(*cur) = lst_tmp;
 	}
+	return (1);
 }
 
-void		ft_appli_size(t_arg **data, t_list **cur, int len, int len_elem)
+int			ft_appli_size(t_arg **data, t_list **cur, int len, int len_elem)
 {
-	while (len_elem < len && (*data)->precision < (*data)->size)
+	t_list	*tmp;
+
+	if ((*data)->precision == 1)
+		len_elem++;
+	while (len_elem < len && (*data)->precision < (*data)->size && (*data)->type != 's')
     {
-		ft_lstadd_front(cur, ft_lstnew(&(*data)->espace));
+		if (!(tmp = ft_lstnew(&(*data)->espace)))
+			return (0);
+		ft_lstadd_front(cur, tmp);
         len_elem++;
     }
-	while ((*data)->precision <= (*data)->size && (*data)->type == 's')
+	while (len_elem < (*data)->size && (*data)->type == 's')
 	{
-		ft_lstadd_front(cur, ft_lstnew(&(*data)->espace));
+		if (!(tmp = ft_lstnew(&(*data)->espace)))
+			return (0);	
+		ft_lstadd_front(cur, tmp);
+		len_elem++;
 		((*data)->precision)++;
 	}
+	return (1);
 }
