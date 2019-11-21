@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 16:19:36 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/21 17:16:50 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:52:54 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,24 @@ int			ft_appli_preci(t_arg **data, t_list **cur, int len, int len_elem)
 				tmp[0] = '&';
     		}
 		}
+		if ((*data)->type == 'p')
+		{
+			(*cur) = (*cur)->next->next;
+			tmp[0] = 'x';
+			(*data)->precision = (*data)->precision + 2;
+		}
 		while (len_elem < (*data)->precision)
 		{
 			ft_lstadd_front(cur, ft_lstnew(&((*data)->zero)));//------------->malloc non protege
 			len_elem++;
 		}
-		if (tmp[0] == '&')
-			ft_lstadd_front(cur, ft_lstnew(&((*data)->moin)));
+		if (tmp[0] == '&' && ((*data)->type == 'd' || (*data)->type == 'i'))
+			ft_lstadd_front(cur, ft_lstnew_malloc(&((*data)->moin), 1));
+		if (tmp[0] == 'x' && (*data)->type == 'p')
+		{
+			ft_lstadd_front(cur, ft_lstnew_malloc(&tmp[0], 1));
+			ft_lstadd_front(cur, ft_lstnew(&(*data)->zero));
+		}
 	}
 	return (1);
 }
@@ -171,8 +182,8 @@ int			ft_appli_size(t_arg **data, t_list **cur, int len, int len_elem)
 {
 	t_list	*tmp;
 
-	if ((*data)->precision == 1)
-		len_elem++;
+	if ((*data)->precision == 1 && (*data)->type != 's')
+		len_elem = len_elem + 2;
 	while (len_elem < len && (*data)->precision < (*data)->size && (*data)->type != 's')
     {
 		if (!(tmp = ft_lstnew(&(*data)->espace)))
