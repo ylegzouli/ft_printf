@@ -72,7 +72,9 @@ int main(int ac, char **av)
 	printf("Test 16\n");
 	ft_printf("ptr =%*p top\n", 30,p);
 	printf("ptr =%*p top\n\n", 30,p);
-
+	
+//	while(1)
+//	{}
 
 	int		len;
 	int		i1;
@@ -136,11 +138,10 @@ int main(int ac, char **av)
     i2 = ft_printf("result : \"%.6d\"", 342) - 11;
     printf("\n[%d][%d]", i1, i2);
 	
+
 	printf("\n\n-------------------------------------CURRENT TEST---------------------------------\n\n");
 
 	ft_printf("\nFLAG=[%s]	|	ARG=[%s] \n\n", av[1], av[2]);
-//	while (1)
-//	{}
 	if (av[1][len] == 's')
 	{
 		printf("compare: \"");

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/13 11:13:15 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/21 19:21:45 by ylegzoul         ###   ########.fr       */
+/*   Created: 2019/11/22 13:58:36 by ylegzoul          #+#    #+#             */
+/*   Updated: 2019/11/22 14:02:19 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int		ft_printf(const char *format, ...)
 	va_list	arg;
 	t_list	*li;
 	int		ret;
+	t_arg	*d;
 
 	ret = 0;
 	if (format == '\0')
@@ -24,18 +25,20 @@ int		ft_printf(const char *format, ...)
 	va_start(arg, format);
 	if (!(li = ft_lstnew(NULL)))
 		return (0);
-	if (!(ft_start_printf(format, &arg, &li)))
+	if (!(ft_start(format, &arg, &li, &d)))
+	{
+		ft_free_d(&li, &d);
 		return (0);
+	}
 	va_end(arg);
 	ft_print_lst_char(li);
 	ret = ft_lstsize(li) - 1;
-//	ft_free_data(&li);
+//	ft_free_d(&li, &d);
 	return (ret);
 }
 
-int		ft_start_printf(const char *format, va_list *arg, t_list **li)
+int		ft_start(const char *format, va_list *arg, t_list **li, t_arg **d)
 {
-	t_arg		*data;
 	char		*next_arg;
 
 	next_arg = ft_strchr(format, '%');
@@ -48,75 +51,68 @@ int		ft_start_printf(const char *format, va_list *arg, t_list **li)
 	{
 		if (!(ft_tab_to_lst(li, (char *)format, (next_arg - format))))
 			return (0);
-		if (!(ft_start_printf(next_arg, arg, li)))
+		if (!(ft_start(next_arg, arg, li, d)))
 			return (0);
 	}
 	else
 	{
-		if (!(ft_start_opt(next_arg, arg, li, &data)))
+		if (!(ft_start_opt(next_arg, arg, li, d)))
 			return (0);
 	}
 	return (1);
 }
 
-int		ft_start_opt(char *next_arg, va_list *arg, t_list **li, t_arg **data)
+int		ft_start_opt(char *next_arg, va_list *arg, t_list **li, t_arg **d)
 {
-	if (!((*data) = malloc(sizeof(t_arg))))
+	if (!((*d) = malloc(sizeof(t_arg))))
 		return (0);
-	if (!(ft_init_data(data)))
+	if (!(ft_init_d(d)))
 		return (0);
-	ft_def_flag(next_arg, data, arg);
-	ft_def_size((*data)->current, data, arg);
-	ft_def_preci((*data)->current, data, arg);
-	ft_def_type((*data)->current, arg, data, li);
-	if (!(ft_convert(data, arg)))
+	ft_def_flag(next_arg, d, arg);
+	ft_def_size((*d)->current, d, arg);
+	ft_def_preci((*d)->current, d, arg);
+	ft_def_type((*d)->current, arg, d, li);
+	if (!(ft_convert(d, arg)))
 		return (0);
-	if (!(ft_appli(data, li)))
+	if (!(ft_appli(d, li)))
 		return (0);
-	next_arg = (*data)->current + 1;
-	if (!(ft_start_printf(next_arg, arg, li)))
+	next_arg = (*d)->current + 1;
+	if (!(ft_start(next_arg, arg, li, d)))
 		return (0);
 	return (1);
 }
 
-int		ft_init_data(t_arg **data)
+int		ft_init_d(t_arg **d)
 {
 	int		i;
 
 	i = 0;
-	(*data)->size = -1;
-	(*data)->type = '\0';
-	if (!((*data)->elem = ft_lstnew(NULL)))
+	(*d)->size = -1;
+	(*d)->type = '\0';
+	if (!((*d)->elem = ft_lstnew(NULL)))
 		return (0);
-	(*data)->precision = -1;
+	(*d)->prec = -1;
 	while (i < (NB_FLAG))
 	{
-		((*data)->flags)[i] = '\0';
+		((*d)->fl)[i] = '\0';
 		i++;
 	}
-	((*data)->flags)[i] = '\0';
-	(*data)->espace = ' ';
-	(*data)->zero = '0';
-	(*data)->moin = '-';
-	((*data)->str_null)[0] = '(';
-	((*data)->str_null)[1] = 'n';
-	((*data)->str_null)[2] = 'u';
-	((*data)->str_null)[3] = 'l';
-	((*data)->str_null)[4] = 'l';
-	((*data)->str_null)[5] = ')';
-	((*data)->str_null)[6] = '\0';
+	((*d)->fl)[i] = '\0';
+	(*d)->espace = ' ';
+	(*d)->zero = '0';
+	(*d)->moin = '-';
+	((*d)->str_null)[0] = '(';
+	((*d)->str_null)[1] = 'n';
+	((*d)->str_null)[2] = 'u';
+	((*d)->str_null)[3] = 'l';
+	((*d)->str_null)[4] = 'l';
+	((*d)->str_null)[5] = ')';
+	((*d)->str_null)[6] = '\0';
 	return (1);
 }
 
-void	ft_free_data(t_list **li)
+void	ft_free_d(t_list **li, t_arg **d)
 {
-	t_list	*tmp;
-
-	while ((*li)->next != NULL)
-	{
-		tmp = (*li);
-		(*li) = (*li)->next;
-		free(tmp);
-//		ft_lstdelone(tmp, &free);
-	}
+	ft_lstclear(li, &free);
+	free(*d);
 }
