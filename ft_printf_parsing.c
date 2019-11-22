@@ -6,39 +6,11 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 14:03:31 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/22 14:03:46 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/22 16:24:26 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-char	ft_is_type(char c)
-{
-	int		i;
-
-	i = 0;
-	while (TYPE[i])
-	{
-		if (c == TYPE[i])
-			return (TYPE[i]);
-		i++;
-	}
-	return ('\0');
-}
-
-char	ft_is_flag(char c)
-{
-	int		i;
-
-	i = 0;
-	while (FLAG[i])
-	{
-		if (c == FLAG[i])
-			return (FLAG[i]);
-		i++;
-	}
-	return ('\0');
-}
 
 void	ft_def_flag(char *format, t_arg **d, va_list *arg)
 {
@@ -47,12 +19,19 @@ void	ft_def_flag(char *format, t_arg **d, va_list *arg)
 	i = 1;
 	while (ft_is_flag(format[i]))
 	{
-		(*d)->fl[i - 1] = ft_is_flag(format[i]);
+		if (ft_strchr((*d)->fl, ft_is_flag(format[i]) == '\0'))
+			(*d)->fl[i - 1] = ft_is_flag(format[i]);
 		i++;
 	}
 	if (format[i] == '*')
 	{
 		(*d)->size = va_arg(*arg, int);
+		if ((*d)->size < 0)
+		{
+			if (ft_strchr((*d)->fl, '-') == NULL)
+				(*d)->fl[i - 1] = '-';
+			(*d)->size = -((*d)->size);
+		}
 		i++;
 	}
 	(*d)->current = &format[i];
