@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 14:04:18 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/22 14:27:00 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/22 21:23:43 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,20 +84,28 @@ int				ft_convert_ptr(t_arg **d, va_list *arg)
 	t_list			*tmp_lst;
 
 	temp = va_arg(*arg, void *);
-	ptr = (unsigned long)temp;
-	if (!(ft_pnblul(ptr, 16, "0123456789abcdef", &((*d)->elem))))
-		return (0);
-	cur = (*d)->elem;
-	tmp_lst = (*d)->elem;
-	while (cur->next->next != NULL)
+	if (temp != NULL)
 	{
-		cur = cur->next;
+		ptr = (unsigned long)temp;
+		if (!(ft_pnblul(ptr, 16, "0123456789abcdef", &((*d)->elem))))
+			return (0);
+		cur = (*d)->elem;
+		tmp_lst = (*d)->elem;
+		while (cur->next->next != NULL)
+		{
+			cur = cur->next;
+			(*d)->elem = (*d)->elem->next;
+		}
+		cur->next = NULL;
 		(*d)->elem = (*d)->elem->next;
+		free((*d)->elem);
+		(*d)->elem = tmp_lst;
 	}
-	cur->next = NULL;
-	(*d)->elem = (*d)->elem->next;
-	free((*d)->elem);
-	(*d)->elem = tmp_lst;
+	else
+	{	
+		if (!(ft_putchar_lst('0', &((*d)->elem))))
+			return (0);
+	}
 	tmp = 'x';
 	ft_lstadd_front(&((*d)->elem), ft_lstnew_malloc(&tmp, 1));
 	ft_lstadd_front(&((*d)->elem), ft_lstnew_malloc(&((*d)->zero), 1));

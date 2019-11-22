@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 13:58:36 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/22 15:12:14 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/22 20:18:26 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ int		ft_init_d(t_arg **d)
 	int		i;
 
 	i = 0;
-	(*d)->size = -1;
+	(*d)->size = -9999;
 	(*d)->type = '\0';
 	if (!((*d)->elem = ft_lstnew(NULL)))
 		return (0);
-	(*d)->prec = -1;
+	(*d)->prec = -9999;
 	while (i < (NB_FLAG))
 	{
 		((*d)->fl)[i] = '\0';

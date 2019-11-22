@@ -137,7 +137,11 @@ int main(int ac, char **av)
     i1 = printf("compare: \"%.6d\" \n", 342) - 13;
     i2 = ft_printf("result : \"%.6d\"", 342) - 11;
     printf("\n[%d][%d]", i1, i2);
-	
+
+	printf("\n\n9.                  [%%.6d]\n");
+    i1 = printf("compare: \"%.6d\" \n", -44342) - 13;
+    i2 = ft_printf("result : \"%.6d\"", -44342) - 11;
+    printf("\n[%d][%d]", i1, i2);
 
 	printf("\n\n-------------------------------------CURRENT TEST---------------------------------\n\n");
 

@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 14:27:23 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/22 15:58:20 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/22 20:26:25 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_appli_preci_pid(t_arg **d, t_list **cur, char **tmp, int len_e)
 {
-	if (len_e < (*d)->prec && (*d)->type != 's')
+	if (len_e <= (*d)->prec && (*d)->type != 's')
 	{
 		if ((*d)->type == 'i' || (*d)->type == 'd')
 		{
@@ -63,13 +63,14 @@ void	ft_appli_preci_str(t_arg **d, t_list **cur, int len, int len_e)
 
 int		ft_size(t_arg **d, int *len, int *len_e, t_list **cur)
 {
+
 	(*cur) = (*d)->elem;
 	*len_e = ft_lstsize(*cur);
 	if ((*d)->size > *len_e)
 		*len = (*d)->size;
 	else
 		*len = *len_e;
-	if (((*d)->prec > *len_e && (*d)->type != 's') || (*d)->type == 's')
+	if (((*d)->prec >= *len_e && (*d)->type != 's') || (*d)->type == 's')
 	{
 		if ((*d)->prec >= 0)
 		{
@@ -95,6 +96,8 @@ int		ft_appli_size(t_arg **d, t_list **cur, int len, int len_e)
 
 	while (len_e < len && (*d)->prec < (*d)->size && (*d)->type != 's')
 	{
+		if ((*d)->prec < 0 && (*d)->prec > -9998)
+			return (1);
 		if (!(tmp = ft_lstnew_malloc(&(*d)->espace, 1)))
 			return (0);
 		ft_lstadd_front(cur, tmp);

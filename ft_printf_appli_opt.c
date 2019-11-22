@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 13:03:04 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/22 16:14:47 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/22 20:26:22 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		ft_appli(t_arg **d, t_list **li)
 	{
 		if (!(ft_appli_zero(d, &cur, len, len_e)))
 			return (0);
-		if ((*d)->prec == -1)
+		if ((*d)->prec == -9999)
 			len = -10;
 	}
 	if (ft_strchr((*d)->fl, '-') == NULL)
@@ -44,7 +44,7 @@ int		ft_appli_preci(t_arg **d, t_list **cur, int len, int len_e)
 
 	tmp = (*cur)->content;
 	ft_appli_preci_str(d, cur, len, len_e);
-	if (len_e < (*d)->prec && (*d)->type != 's' && (*d)->type != '%')
+	if (len_e <= (*d)->prec && (*d)->type != 's' && (*d)->type != '%')
 	{
 		ft_appli_preci_pid(d, cur, &tmp, len_e);
 		while (len_e < (*d)->prec)
