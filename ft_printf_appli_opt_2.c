@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 14:27:23 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/22 20:26:25 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/25 19:24:52 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_appli_preci_pid(t_arg **d, t_list **cur, char **tmp, int len_e)
 	{
 		if ((*d)->type == 'i' || (*d)->type == 'd')
 		{
-			if (*tmp[0] == '-')
+			if ((*d)->ptrnull == 0 && *tmp[0] == '-')
 			{
 				(*cur) = (*cur)->next;
 				((*d)->prec)++;
@@ -63,9 +63,14 @@ void	ft_appli_preci_str(t_arg **d, t_list **cur, int len, int len_e)
 
 int		ft_size(t_arg **d, int *len, int *len_e, t_list **cur)
 {
-
 	(*cur) = (*d)->elem;
-	*len_e = ft_lstsize(*cur);
+//	*len_e = ft_lstsize(*cur);
+	if ((*d)->ptrnull != 0 && (*d)->type != 'p')
+		*len_e = 0;
+	else if ((*d)->ptrnull != 0 && (*d)->type == 'p')
+		*len_e = 2;
+	else
+		*len_e = ft_lstsize(*cur);
 	if ((*d)->size > *len_e)
 		*len = (*d)->size;
 	else
@@ -93,11 +98,10 @@ int		ft_size(t_arg **d, int *len, int *len_e, t_list **cur)
 int		ft_appli_size(t_arg **d, t_list **cur, int len, int len_e)
 {
 	t_list	*tmp;
-
 	while (len_e < len && (*d)->prec < (*d)->size && (*d)->type != 's')
 	{
-		if ((*d)->prec < 0 && (*d)->prec > -9998)
-			return (1);
+/*		if ((*d)->prec == 0 && (*d)->prec != -9999)
+			return (1);*/ 
 		if (!(tmp = ft_lstnew_malloc(&(*d)->espace, 1)))
 			return (0);
 		ft_lstadd_front(cur, tmp);

@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 14:04:18 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/22 21:23:43 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/25 19:30:29 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,17 @@ int				ft_convert_ptr(t_arg **d, va_list *arg)
 		free((*d)->elem);
 		(*d)->elem = tmp_lst;
 	}
-	else
-	{	
+	else if ((*d)->prec != 0)
+	{
+		(*d)->ptrnull = 1;
+		((*d)->sizenull)++;
 		if (!(ft_putchar_lst('0', &((*d)->elem))))
 			return (0);
+	}
+	else if ((*d)->prec == 0)
+	{
+		(*d)->ptrnull = 1;
+		((*d)->sizenull)++;
 	}
 	tmp = 'x';
 	ft_lstadd_front(&((*d)->elem), ft_lstnew_malloc(&tmp, 1));

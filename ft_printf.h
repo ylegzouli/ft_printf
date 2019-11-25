@@ -31,6 +31,8 @@ typedef struct	s_arg
 
 	t_list	*elem;
 
+	int		ptrnull;
+	int		sizenull;
 	char	espace;
 	char	zero;
 	char	moin;

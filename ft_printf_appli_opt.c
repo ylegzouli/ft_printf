@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 13:03:04 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/22 20:26:22 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/25 19:23:03 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,15 @@ int		ft_appli_preci(t_arg **d, t_list **cur, int len, int len_e)
 			ft_lstadd_front(cur, ft_lstnew_malloc(&((*d)->zero), 1));
 			len_e++;
 		}
-		if (tmp[0] == '&' && ((*d)->type == 'd' || (*d)->type == 'i'))
-			ft_lstadd_front(cur, ft_lstnew_malloc(&((*d)->moin), 1));
-		if (tmp[0] == 'x' && (*d)->type == 'p')
-		{
-			ft_lstadd_front(cur, ft_lstnew_malloc(&tmp[0], 1));
-			ft_lstadd_front(cur, ft_lstnew_malloc(&(*d)->zero, 1));
+		if ((*d)->ptrnull == 0 || (*d)->type == 'p')
+		{	
+			if (tmp[0] == '&' && ((*d)->type == 'd' || (*d)->type == 'i'))
+				ft_lstadd_front(cur, ft_lstnew_malloc(&((*d)->moin), 1));
+			if (tmp[0] == 'x' && (*d)->type == 'p')
+			{
+				ft_lstadd_front(cur, ft_lstnew_malloc(&tmp[0], 1));
+				ft_lstadd_front(cur, ft_lstnew_malloc(&(*d)->zero, 1));
+			}
 		}
 	}
 	if ((*d)->type == '%')
@@ -92,7 +95,7 @@ int		ft_appli_zero(t_arg **d, t_list **cur, int len, int len_e)
 		if (tmp[0] == '-')
 			(*cur) = (*cur)->next;
 	}
-	while (len_e < len && (*d)->prec < 0)
+	while (len_e < len && (*d)->prec == -9999)
 	{
 		if (!(temp = ft_lstnew_malloc(&(*d)->zero, 1)))
 			return (0);
