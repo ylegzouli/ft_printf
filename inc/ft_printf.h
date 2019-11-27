@@ -13,7 +13,7 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include "libft.h"
+# include "../lib/libft.h"
 # include <stdarg.h>
 
 # define TYPE "cspdiuxX%"
@@ -44,6 +44,8 @@ int				ft_start(const char *format, va_list *arg, t_list **li,
 t_arg **d);
 int				ft_start_opt(char *next_arg, va_list *arg, t_list **li,
 t_arg **d);
+void			ft_clean_lst(t_list **li);
+int				ft_lst_isempty(t_list *li);
 int				ft_init_d(t_arg **d);
 void			ft_free_d(t_list **li, t_arg **d);
 
@@ -76,7 +78,7 @@ int len_e);
 int				ft_appli_moin(t_arg **d, t_list **cur, int len,
 int len_e);
 int				ft_appli_zero(t_arg **d, t_list **cur, int len,
-int len_e);
+int *len_e);
 int				ft_appli_size(t_arg **d, t_list **cur, int len,
 int len_e);
 

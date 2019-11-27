@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../inc/ft_printf.h"
 
 int				ft_convert(t_arg **d, va_list *arg)
 {
@@ -45,19 +45,25 @@ int				ft_convert_str(t_arg **d, va_list *arg)
 	t_list	*cur;
 
 	str = va_arg(*arg, char *);
-	if (str == NULL)
+	if ((*d)->prec != 0)
 	{
-		if (!(ft_putstr_lst((*d)->str_null, &((*d)->elem))))
-			return (0);
+		if (str == NULL)
+		{
+			if (!(ft_putstr_lst((*d)->str_null, &((*d)->elem))))
+				return (0);
+		}
+		else
+		{
+			if (!(ft_putstr_lst(str, &((*d)->elem))))
+				return (0);
+		}
+		cur = (*d)->elem->next;
+		free((*d)->elem);
+		(*d)->elem = cur;
+		//printf("size:%d\ncurrent:%s\nflag:%s\ntype:%c\nprec:%d\nptrnull:%d\nsizenull:%d\n", (*d)->size, (*d)->current, (*d)->fl, (*d)->type, (*d)->prec, (*d)->ptrnull, (*d)->sizenull);
 	}
-	else
-	{
-		if (!(ft_putstr_lst(str, &((*d)->elem))))
-			return (0);
-	}
-	cur = (*d)->elem->next;
-	free((*d)->elem);
-	(*d)->elem = cur;
+//	ft_print_lst_char((*d)->elem);
+//	printf("\n");
 	return (1);
 }
 

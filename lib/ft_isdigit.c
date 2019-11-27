@@ -1,41 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_parsing_2.c                              :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/22 14:22:36 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/22 14:23:55 by ylegzoul         ###   ########.fr       */
+/*   Created: 2019/11/04 15:19:07 by ylegzoul          #+#    #+#             */
+/*   Updated: 2019/11/04 17:41:25 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-
-char	ft_is_type(char c)
+int		ft_isdigit(int c)
 {
-	int		i;
-
-	i = 0;
-	while (TYPE[i])
-	{
-		if (c == TYPE[i])
-			return (TYPE[i]);
-		i++;
-	}
-	return ('\0');
-}
-
-char	ft_is_flag(char c)
-{
-	int		i;
-
-	i = 0;
-	while (FLAG[i])
-	{
-		if (c == FLAG[i])
-			return (FLAG[i]);
-		i++;
-	}
-	return ('\0');
+	if (c >= 48 && c <= 57)
+		return (1);
+	return (0);
 }

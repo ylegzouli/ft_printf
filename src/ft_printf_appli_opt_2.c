@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../inc/ft_printf.h"
 
 void	ft_appli_preci_pid(t_arg **d, t_list **cur, char **tmp, int len_e)
 {
@@ -49,6 +49,12 @@ void	ft_appli_preci_str(t_arg **d, t_list **cur, int len, int len_e)
 			i++;
 		}
 		ft_lstclear(cur, &free);
+		if ((*d)->prec == 0)
+		{
+			(*cur) = ft_lstnew(NULL);
+			(*d)->sizenull++;
+			return ;
+		}
 		(*cur) = lst_tmp;
 		i = 0;
 		while (i < (*d)->prec - 1)
@@ -58,27 +64,36 @@ void	ft_appli_preci_str(t_arg **d, t_list **cur, int len, int len_e)
 		}
 		(*cur)->next = NULL;
 		(*cur) = lst_tmp;
+		//printf("len:%d\nlen_e:%d\nprec:%d\nsize:%d\n", len , len_e, (*d)->prec, (*d)->size);
 	}
 }
 
 int		ft_size(t_arg **d, int *len, int *len_e, t_list **cur)
 {
 	(*cur) = (*d)->elem;
-//	*len_e = ft_lstsize(*cur);
-	if ((*d)->ptrnull != 0 && (*d)->type != 'p')
-		*len_e = 0;
+	if ((*d)->ptrnull != 0 && (*d)->type != 'p' && (*d)->prec != 0)
+		*len_e = 1;
 	else if ((*d)->ptrnull != 0 && (*d)->type == 'p')
-		*len_e = 2;
+	{
+		*len_e = ft_lstsize(*cur) - ((*d)->sizenull);
+	}
 	else
+	{
 		*len_e = ft_lstsize(*cur);
+		if (ft_strchr((*d)->fl, '0') == 0)
+			*len_e = *len_e - (*d)->ptrnull;
+	}
 	if ((*d)->size > *len_e)
+	{	
 		*len = (*d)->size;
+	}
 	else
 		*len = *len_e;
 	if (((*d)->prec >= *len_e && (*d)->type != 's') || (*d)->type == 's')
 	{
 		if ((*d)->prec >= 0)
 		{
+		//	printf("len:%d\nlen_e:%d\nprec:%d\nsize:%d\nptrnull:%d\nsizenull:%d\n", *len , *len_e, (*d)->prec, (*d)->size, (*d)->ptrnull, (*d)->sizenull);
 			if (!(ft_appli_preci(d, cur, *len, *len_e)))
 				return (0);
 			if ((*d)->type != 's')
@@ -100,8 +115,8 @@ int		ft_appli_size(t_arg **d, t_list **cur, int len, int len_e)
 	t_list	*tmp;
 	while (len_e < len && (*d)->prec < (*d)->size && (*d)->type != 's')
 	{
-/*		if ((*d)->prec == 0 && (*d)->prec != -9999)
-			return (1);*/ 
+//		if ((*d)->prec == 0 && (*d)->prec == -9999)
+//			return (1);
 		if (!(tmp = ft_lstnew_malloc(&(*d)->espace, 1)))
 			return (0);
 		ft_lstadd_front(cur, tmp);

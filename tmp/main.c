@@ -563,7 +563,7 @@ printf("\033[1;31m");
 		printf("                         \033[1;33mretour unofficiel : %d\033[0m\n", i);
 		
 		printf("\033[0;36m======================= TEST\033[0m 2 - 5\n");
-		i = printf("@moulitest: %5.p", NULL, NULL); printf("|fin");
+		i = printf("@moulitest: %5.p", NULL); printf("|fin");
 			fflush(stdout);
 		printf("                         \033[1;33mretour officiel   : %d\033[0m\n", i);
 		i = ft_printf("@moulitest: %5.p", NULL); printf("|fin");
@@ -1198,6 +1198,7 @@ i = printf("%.1x\n", 500);
 
 
 /////////////////////////////
+
 
 /*
 		printf("\033[0;36m======================= TEST\033[0m 55\n");

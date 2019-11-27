@@ -1,40 +1,40 @@
-#include "ft_printf.h"
+#include "../inc/ft_printf.h"
 
 int		main()
 {
 	void *ptr_null = NULL;
 	int ret;
 	int ret2;
-	
+/*	
 	ft_printf("\n-------------------------------------------\n");
-	ret = printf("%05.*d\n", -15, 45);
-	ret2 = ft_printf("%05.*d\n", -15, 45);
+	ret = printf("%000000000.*i\n", 0xff, 0xff);
+	ret2 = ft_printf("%0000000000.*i\n", 0xff, 0xff);
 	printf("\n%d  %d\n", ret, ret2);
 
 	ft_printf("\n-------------------------------------------\n");
-	 ret = printf("%05.*u\n", -15, 45);
-    ret2 = ft_printf("%05.*u\n", -15, 45);
+	 ret = printf("%.0s\n", "bonjour");
+    ret2 = ft_printf("%.0s\n", "bonjour");
     printf("\n%d  %d\n", ret, ret2);
 
 	ft_printf("\n-------------------------------------------\n");
-	 ret = printf("%*.*u\n", -20, -15, 45);
-    ret2 = ft_printf("%*.*u\n", -20, -15, 45);
+	 ret = printf("Coucou %.0s\n%s%---12s\n", "hi", "coco", NULL);
+    ret2 = ft_printf("Coucou %.0s\n%s%---12s\n", "hi", "coco", NULL);
     printf("\n%d  %d\n", ret, ret2);
 
 	ft_printf("\n-------------------------------------------\n");
-	 ret = printf("%05.7x  %05.13x\n", 0, 0);
-    ret2 = ft_printf("%05.7x  %05.13x\n", 0, 0);
+	 ret = printf("|%-5.0x|\n" , 0);
+    ret2 = ft_printf("|%-5.0x|\n" , 0);
+    printf("\n%d  %d\n", ret, ret2);
+*/
+	ft_printf("\n-------------------------------------------\n");
+	 ret = printf("|%-3.1s|\n", "hello");
+    ret2 = ft_printf("|%-3.1s|\n", "hello");
     printf("\n%d  %d\n", ret, ret2);
 
 	ft_printf("\n-------------------------------------------\n");
-	 ret = printf("%15p\n", ptr_null);
-    ret2 = ft_printf("%15p\n", ptr_null);
+	 ret = printf("|%-2.1s|\n", "hello");
+    ret2 = ft_printf("|%-2.1s|\n", "hello");
     printf("\n%d  %d\n", ret, ret2);
-
-	ft_printf("\n-------------------------------------------\n");
-	 ret = printf("%-15p\n", ptr_null);
-    ret2 = ft_printf("%-15p\n", ptr_null);
-    printf("\n%d  %d\n", ret, ret2);
-	
+		
 	ft_printf("\n-------------------------------------------\n");
 }

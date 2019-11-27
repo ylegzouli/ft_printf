@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../inc/ft_printf.h"
 
 void	ft_def_flag(char *format, t_arg **d, va_list *arg)
 {
@@ -19,7 +19,8 @@ void	ft_def_flag(char *format, t_arg **d, va_list *arg)
 	i = 1;
 	while (ft_is_flag(format[i]))
 	{
-		if (ft_strchr((*d)->fl, ft_is_flag(format[i]) == '\0'))
+//		printf("size:%d\ncurrent:%s\nflag:%s\n", (*d)->size, &format[i], (*d)->fl);
+		if (ft_strchr((*d)->fl, ft_is_flag(format[i])) == '\0')
 			(*d)->fl[i - 1] = ft_is_flag(format[i]);
 		i++;
 	}
@@ -63,6 +64,7 @@ void	ft_def_size(char *format, t_arg **d, va_list *arg)
 void	ft_def_preci(char *format, t_arg **d, va_list *arg)
 {
 	int		i;
+	int		tmp;
 
 	i = 0;
 	if (format[i] == '.')
@@ -70,7 +72,11 @@ void	ft_def_preci(char *format, t_arg **d, va_list *arg)
 		i++;
 		if (format[i] == '*')
 		{
-			(*d)->prec = va_arg(*arg, int);
+			tmp = va_arg(*arg, int);
+			if (tmp < 0 && ft_strchr((*d)->fl, '-') == NULL)
+				(*d)->prec = (*d)->size;
+			else	
+				(*d)->prec = tmp;
 			i++;
 		}
 		else if (ft_isdigit(format[i]))

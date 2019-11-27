@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../inc/ft_printf.h"
 
 int		ft_printf(const char *format, ...)
 {
@@ -35,9 +35,9 @@ int		ft_printf(const char *format, ...)
 	}
 	va_end(arg);
 	ft_print_lst_char(li);
-//	printf("\nptrnull = %d\n", d->sizenull);
 	ret = ft_lstsize(li) - 1 - d->sizenull;
-//	ft_free_d(&li, &d);
+	ft_free_d(&li, &d);
+//	printf("size:%d\ncurrent:%s\nflag:%s\ntype:%c\nprec:%d\nptrnull:%d", d->size, d->current, d->fl, d->type, d->prec, d->ptrnull);
 	return (ret);
 }
 
@@ -46,6 +46,7 @@ int		ft_start(const char *format, va_list *arg, t_list **li, t_arg **d)
 	char		*next_arg;
 
 	next_arg = ft_strchr(format, '%');
+	//printf("size:%d\ncurrent:%s\nflag:%s\ntype:%c\nprec:%d\nptrnull:%d", (*d)->size, (*d)->current, (*d)->fl, (*d)->type, (*d)->prec, (*d)->ptrnull);
 	if (next_arg == NULL)
 	{
 		if (!(ft_tab_to_lst((li), (char *)format, ft_strlen(format))))
@@ -76,6 +77,8 @@ int		ft_start_opt(char *next_arg, va_list *arg, t_list **li, t_arg **d)
 	ft_def_size((*d)->current, d, arg);
 	ft_def_preci((*d)->current, d, arg);
 	ft_def_type((*d)->current, arg, d, li);
+	if ((*d)->type == '\0')
+		return (0);
 	if (!(ft_convert(d, arg)))
 		return (0);
 	if (!(ft_appli(d, li)))
