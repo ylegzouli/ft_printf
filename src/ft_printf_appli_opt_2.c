@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 14:27:23 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/25 19:24:52 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/27 20:51:17 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,8 @@ void	ft_appli_preci_str(t_arg **d, t_list **cur, int len, int len_e)
 	if (len_e > (*d)->prec && (*d)->type == 's')
 	{
 		lst_tmp = (*cur);
-		while (i < (*d)->prec)
-		{
+		while (i++ < (*d)->prec)
 			(*cur) = (*cur)->next;
-			i++;
-		}
 		ft_lstclear(cur, &free);
 		if ((*d)->prec == 0)
 		{
@@ -57,43 +54,21 @@ void	ft_appli_preci_str(t_arg **d, t_list **cur, int len, int len_e)
 		}
 		(*cur) = lst_tmp;
 		i = 0;
-		while (i < (*d)->prec - 1)
-		{
+		while (i++ < (*d)->prec - 1)
 			(*cur) = (*cur)->next;
-			i++;
-		}
 		(*cur)->next = NULL;
 		(*cur) = lst_tmp;
-		//printf("len:%d\nlen_e:%d\nprec:%d\nsize:%d\n", len , len_e, (*d)->prec, (*d)->size);
 	}
 }
 
 int		ft_size(t_arg **d, int *len, int *len_e, t_list **cur)
 {
 	(*cur) = (*d)->elem;
-	if ((*d)->ptrnull != 0 && (*d)->type != 'p' && (*d)->prec != 0)
-		*len_e = 1;
-	else if ((*d)->ptrnull != 0 && (*d)->type == 'p')
-	{
-		*len_e = ft_lstsize(*cur) - ((*d)->sizenull);
-	}
-	else
-	{
-		*len_e = ft_lstsize(*cur);
-		if (ft_strchr((*d)->fl, '0') == 0)
-			*len_e = *len_e - (*d)->ptrnull;
-	}
-	if ((*d)->size > *len_e)
-	{	
-		*len = (*d)->size;
-	}
-	else
-		*len = *len_e;
+	ft_size_2(d, len, len_e, cur);
 	if (((*d)->prec >= *len_e && (*d)->type != 's') || (*d)->type == 's')
 	{
 		if ((*d)->prec >= 0)
 		{
-		//	printf("len:%d\nlen_e:%d\nprec:%d\nsize:%d\nptrnull:%d\nsizenull:%d\n", *len , *len_e, (*d)->prec, (*d)->size, (*d)->ptrnull, (*d)->sizenull);
 			if (!(ft_appli_preci(d, cur, *len, *len_e)))
 				return (0);
 			if ((*d)->type != 's')
@@ -110,13 +85,34 @@ int		ft_size(t_arg **d, int *len, int *len_e, t_list **cur)
 	return (1);
 }
 
+void	ft_size_2(t_arg **d, int *len, int *len_e, t_list **cur)
+{
+	if ((*d)->ptrnull != 0 && (*d)->type != 'p' && (*d)->prec != 0)
+		*len_e = 1;
+	else if ((*d)->ptrnull != 0 && (*d)->type == 'p')
+	{
+		*len_e = ft_lstsize(*cur) - ((*d)->sizenull);
+	}
+	else
+	{
+		*len_e = ft_lstsize(*cur);
+		if (ft_strchr((*d)->fl, '0') == 0)
+			*len_e = *len_e - (*d)->ptrnull;
+	}
+	if ((*d)->size > *len_e)
+	{
+		*len = (*d)->size;
+	}
+	else
+		*len = *len_e;
+}
+
 int		ft_appli_size(t_arg **d, t_list **cur, int len, int len_e)
 {
 	t_list	*tmp;
+
 	while (len_e < len && (*d)->prec < (*d)->size && (*d)->type != 's')
 	{
-//		if ((*d)->prec == 0 && (*d)->prec == -9999)
-//			return (1);
 		if (!(tmp = ft_lstnew_malloc(&(*d)->espace, 1)))
 			return (0);
 		ft_lstadd_front(cur, tmp);

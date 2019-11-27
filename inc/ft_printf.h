@@ -61,14 +61,18 @@ char			ft_is_type(char c);
 int				ft_convert(t_arg **d, va_list *arg);
 int				ft_convert_char(t_arg **d, va_list *arg);
 int				ft_convert_str(t_arg **d, va_list *arg);
+int				ptr_2(t_arg **d, t_list **cur, t_list **tmp_lst, 
+void *temp);
 int				ft_convert_ptr(t_arg **d, va_list *arg);
 int				ft_convert_hexa(t_arg **d, va_list *arg);
+int				hexa_2(t_arg **d, t_list **cur, t_list **tmp, unsigned int n);
 int				ft_convert_unsigned(t_arg **d, va_list *arg);
 int				ft_convert_int(t_arg **d, va_list *arg);
 int				ft_convert_pcent(t_arg **d, va_list *arg);
 
 int				ft_appli(t_arg **d, t_list **li);
 int				ft_size(t_arg **d, int *len, int *len_e, t_list **cur);
+void			ft_size_2(t_arg **d, int *len, int *len_e, t_list **cur);
 int				ft_appli_preci(t_arg **d, t_list **cur, int len,
 int len_e);
 void			ft_appli_preci_pid(t_arg **d, t_list **cur, char **tmp, 

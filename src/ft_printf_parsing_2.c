@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 14:22:36 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/22 14:23:55 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/27 20:45:00 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,30 +39,3 @@ char	ft_is_flag(char c)
 	}
 	return ('\0');
 }
-/*
-void		ft_clean_lst(t_list **li)
-{
-	t_list	*cur;
-	t_list	*tmp;
-
-	cur = *li;
-	while ((*li) != NULL)
-	{
-		tmp = (*li);
-		(*li) = (*li)->next;
-	}
-	if ((*li)->next != NULL)
-	{
-		tmp->next = (*li)->next;
-		free(*li);
-	}
-	*li = cur;
-}
-
-int			ft_lst_isempty(t_list *li)
-{
-	if (li == NULL)
-		return (0);
-	return (1);
-}
-*/

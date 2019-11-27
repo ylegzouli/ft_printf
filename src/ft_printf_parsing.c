@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 14:03:31 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/22 16:24:26 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/11/27 20:25:49 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	ft_def_flag(char *format, t_arg **d, va_list *arg)
 	i = 1;
 	while (ft_is_flag(format[i]))
 	{
-//		printf("size:%d\ncurrent:%s\nflag:%s\n", (*d)->size, &format[i], (*d)->fl);
 		if (ft_strchr((*d)->fl, ft_is_flag(format[i])) == '\0')
 			(*d)->fl[i - 1] = ft_is_flag(format[i]);
 		i++;
@@ -67,15 +66,14 @@ void	ft_def_preci(char *format, t_arg **d, va_list *arg)
 	int		tmp;
 
 	i = 0;
-	if (format[i] == '.')
+	if (format[i++] == '.')
 	{
-		i++;
 		if (format[i] == '*')
 		{
 			tmp = va_arg(*arg, int);
 			if (tmp < 0 && ft_strchr((*d)->fl, '-') == NULL)
 				(*d)->prec = (*d)->size;
-			else	
+			else
 				(*d)->prec = tmp;
 			i++;
 		}
@@ -89,7 +87,6 @@ void	ft_def_preci(char *format, t_arg **d, va_list *arg)
 			(*d)->prec = 0;
 		(*d)->current = &format[i];
 	}
-	return ;
 }
 
 void	ft_def_type(char *format, va_list *arg, t_arg **d, t_list **li)
