@@ -72,7 +72,8 @@ void	ft_def_preci(char *format, t_arg **d, va_list *arg)
 		{
 			tmp = va_arg(*arg, int);
 			if (tmp < 0 && ft_strchr((*d)->fl, '-') == NULL)
-				(*d)->prec = (*d)->size;
+				(*d)->cas = 1;
+//				(*d)->prec = (*d)->size;
 			else
 				(*d)->prec = tmp;
 			i++;
@@ -94,6 +95,8 @@ void	ft_def_type(char *format, va_list *arg, t_arg **d, t_list **li)
 	int		i;
 
 	i = 0;
+	if ((*d)->cas == 1)
+		(*d)->prec = (*d)->size;
 	if (format[i])
 		(*d)->type = ft_is_type(format[i]);
 	return ;

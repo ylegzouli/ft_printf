@@ -34,6 +34,8 @@ int		ft_appli(t_arg **d, t_list **li)
 		len_e = (*d)->size;
 	}
 	(*d)->elem = cur;
+	if ((*d)->type == 'p' && (*d)->prec == 0 && (*d)->ptrnull == 2)
+		(*d)->sizenull--;
 	ft_lstadd_back(li, (*d)->elem);
 	return (1);
 }

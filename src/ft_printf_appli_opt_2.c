@@ -105,6 +105,8 @@ void	ft_size_2(t_arg **d, int *len, int *len_e, t_list **cur)
 	}
 	else
 		*len = *len_e;
+	if ((*d)->cas == 2)
+		(*d)->prec = -9999;
 }
 
 int		ft_appli_size(t_arg **d, t_list **cur, int len, int len_e)

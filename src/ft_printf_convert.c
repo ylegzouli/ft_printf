@@ -81,7 +81,6 @@ int		ft_convert_char(t_arg **d, va_list *arg)
 int		ft_convert_ptr(t_arg **d, va_list *arg)
 {
 	void			*temp;
-	char			tmp;
 	t_list			*cur;
 	t_list			*tmp_lst;
 
@@ -97,11 +96,13 @@ int		ft_convert_ptr(t_arg **d, va_list *arg)
 	}
 	else if ((*d)->prec == 0)
 	{
-		(*d)->ptrnull = 1;
+		if (temp == NULL)
+			(*d)->ptrnull = 1;
+		else if (temp != NULL)
+			(*d)->ptrnull = 2;
 		((*d)->sizenull)++;
 	}
-	tmp = 'x';
-	ft_lstadd_front(&((*d)->elem), ft_lstnew_malloc(&tmp, 1));
+	ft_lstadd_front(&((*d)->elem), ft_lstnew_malloc(&((*d)->x), 1));
 	ft_lstadd_front(&((*d)->elem), ft_lstnew_malloc(&((*d)->zero), 1));
 	return (1);
 }

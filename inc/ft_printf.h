@@ -34,6 +34,8 @@ typedef struct	s_arg
 	int		ptrnull;
 	int		sizenull;
 	char	espace;
+	int		cas;
+	char	x;
 	char	zero;
 	char	moin;
 	char	str_null[7];

@@ -1,4 +1,4 @@
-#include "ft_printf.h"
+#include "../inc/ft_printf.h"
 #include "stdio.h"
 
 int main(int ac, char **av)

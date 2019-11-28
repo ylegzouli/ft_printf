@@ -27,13 +27,13 @@ int		main()
     printf("\n%d  %d\n", ret, ret2);
 */
 	ft_printf("\n-------------------------------------------\n");
-	 ret = printf("|%-3.1s|\n", "hello");
-    ret2 = ft_printf("|%-3.1s|\n", "hello");
+	 ret = printf("|%.*d|\n", -9999, 2);
+    ret2 = ft_printf("|%.*d|\n", -9999, 2);
     printf("\n%d  %d\n", ret, ret2);
 
 	ft_printf("\n-------------------------------------------\n");
-	 ret = printf("|%-2.1s|\n", "hello");
-    ret2 = ft_printf("|%-2.1s|\n", "hello");
+	 ret = printf("|%05.*d|\n", -15, -42);
+    ret2 = ft_printf("|%05.*d|\n", -15, -42);
     printf("\n%d  %d\n", ret, ret2);
 		
 	ft_printf("\n-------------------------------------------\n");

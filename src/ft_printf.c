@@ -102,6 +102,8 @@ int		ft_init_d(t_arg **d)
 	(*d)->espace = ' ';
 	(*d)->zero = '0';
 	(*d)->moin = '-';
+	(*d)->x = 'x';
+	(*d)->cas = 0;
 	((*d)->str_null)[0] = '(';
 	((*d)->str_null)[1] = 'n';
 	((*d)->str_null)[2] = 'u';

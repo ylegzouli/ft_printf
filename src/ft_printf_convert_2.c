@@ -106,6 +106,8 @@ int				ft_convert_int(t_arg **d, va_list *arg)
 		(*d)->ptrnull = 1;
 		((*d)->sizenull)++;
 	}
+	if ((*d)->cas == 1 && n < 0)
+		(*d)->cas = 2;
 	return (1);
 }
 
