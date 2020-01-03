@@ -73,7 +73,6 @@ void	ft_def_preci(char *format, t_arg **d, va_list *arg)
 			tmp = va_arg(*arg, int);
 			if (tmp < 0 && ft_strchr((*d)->fl, '-') == NULL)
 				(*d)->cas = 1;
-//				(*d)->prec = (*d)->size;
 			else
 				(*d)->prec = tmp;
 			i++;

@@ -1,10 +1,7 @@
-#include "../inc/ft_printf.h"
 
 int		main()
 {
-	void *ptr_null = NULL;
 	int ret;
-	int ret2;
 /*	
 	ft_printf("\n-------------------------------------------\n");
 	ret = printf("%000000000.*i\n", 0xff, 0xff);
@@ -26,15 +23,22 @@ int		main()
     ret2 = ft_printf("|%-5.0x|\n" , 0);
     printf("\n%d  %d\n", ret, ret2);
 */
-	ft_printf("\n-------------------------------------------\n");
-	 ret = printf("|%.*d|\n", -9999, 2);
-    ret2 = ft_printf("|%.*d|\n", -9999, 2);
-    printf("\n%d  %d\n", ret, ret2);
+	ret = printf("|%.10d|\n", -2543) - 3;
+    printf("%d\n", ret);
+	
+	ret = printf("|%5.2s|\n", "bonjour") - 3;
+    printf("%d\n", ret);
+	
+	ret = printf("|%3x|\n", 223) - 3;
+    printf("%d\n", ret);
 
-	ft_printf("\n-------------------------------------------\n");
+
+
+/*	ft_printf("\n-------------------------------------------\n");
 	 ret = printf("|%05.*d|\n", -15, -42);
     ret2 = ft_printf("|%05.*d|\n", -15, -42);
     printf("\n%d  %d\n", ret, ret2);
 		
 	ft_printf("\n-------------------------------------------\n");
-}
+	*/
+	}
